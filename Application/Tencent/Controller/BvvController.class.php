@@ -600,6 +600,11 @@ class BvvController extends Controller
     public  function isloaclserverop($ip='202.102.134.68'){
         dump(EnvironmentHelper::isLocalServer($ip));
     }
+
+    public function imageop2(){
+        $result= ImageHelper::saveImageResource(null,'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\','\\Application\\Home\\a.txt');
+        return $result;
+    }
 }
 
 ?>

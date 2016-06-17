@@ -13,6 +13,7 @@ use Vendor\Hiland\Utils\Data\OperationHelper;
 use Vendor\Hiland\Utils\Data\StringHelper;
 use Vendor\Hiland\Utils\DataConstructure\Queue;
 use Vendor\Hiland\Utils\IO\ImageHelper;
+use Vendor\Hiland\Utils\Web\EnvironmentHelper;
 use Vendor\Hiland\Utils\Web\SaeHelper;
 use Vendor\Hiland\Utils\Web\WebHelper;
 
@@ -33,9 +34,9 @@ class BizHelper
      */
     public static function generateAndSaveQRCode($recommendUser, $andsavetempfile)
     {
-        $bgType=null;//背景类型，留出来以后可以支持多种微信背景。
+        $bgType = null;//背景类型，留出来以后可以支持多种微信背景。
         //$bgType='dblc';//多步流程背景
-        $bgType='xfbbd';//幸福不必等背景
+        $bgType = 'xfbbd';//幸福不必等背景
 
         // 0、获取推荐人的基本信息
         $recommenduserid = 0;
@@ -71,14 +72,13 @@ class BizHelper
         $imagemegered = imagecreatetruecolor(imagesx($imagebg), imagesy($imagebg));
         imagecopy($imagemegered, $imagebg, 0, 0, 0, 0, imagesx($imagebg), imagesy($imagebg));
 
-        if (empty($recommenduseravatar))
-        {
+        if (empty($recommenduseravatar)) {
             $recommenduseravatar = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
         }
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
 
-        switch ($bgType){
+        switch ($bgType) {
             case 'xfbbd':
                 $imageavatarnew = ImageHelper::resizedImage($imageavatar, 130, 130);
                 imagecopy($imagemegered, $imageavatarnew, 15, 22, 0, 0, imagesx($imageavatarnew), imagesy($imageavatarnew));
@@ -104,7 +104,7 @@ class BizHelper
 
         //imagefttext($imagemegered, 16, 0, 30, 140, $textcolor, $textfont, '邀请好友共同享优惠！');
 
-        switch ($bgType){
+        switch ($bgType) {
             case 'xfbbd':
                 $textcolor = imagecolorallocate($imagemegered, 255, 255, 255);
                 imagefttext($imagemegered, 20, 0, 200, 105, $textcolor, $textfont, $recommendusername);
@@ -137,12 +137,24 @@ class BizHelper
         // 5、将合并后的图片保存在storage中
         $savedimagebasename = GuidHelper::newGuid() . '.jpg';
         $savedimagebasenamewithrelativepath = 'userqrcode/' . GuidHelper::newGuid() . '.jpg';
-        $domainname = C('WEIXIN_SAE_DOMAINNAME');
-        $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
+
+        $recommendpicurl = '';
+        if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
+            $domainname = C('WEIXIN_SAE_DOMAINNAME');
+            $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
+        } else {
+            $uploadPath = '/Uploads/';
+            $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
+            $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
+        }
 
         $recommendpictemppath = '';
         if ($andsavetempfile) {
-            $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
+            if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
+                $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
+            }else{
+                $recommendpictemppath= ImageHelper::saveImageResource($imagemegered,$fileFullName);
+            }
         }
 
         imagedestroy($imageavatar);

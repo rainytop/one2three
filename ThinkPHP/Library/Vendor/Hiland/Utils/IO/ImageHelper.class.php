@@ -1,5 +1,6 @@
 <?php
 namespace Vendor\Hiland\Utils\IO;
+use Vendor\Hiland\Utils\Data\StringHelper;
 
 /**
  *
@@ -303,6 +304,44 @@ class ImageHelper
         );
 
         return $array;
+    }
+
+    /**
+     * 保存到sae中一个临时文件并获得文件的物理绝对路径(仅在当前请求期间有效，跨请求本数据无效)
+     * @param resource $image
+     * @param string $savingImageRelativePhysicalPathFullName 要保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
+     * @return string
+     */
+    public static function saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName)
+    {
+        $fileextionname = strtolower(FileHelper::getFileExtensionName($savingImageRelativePhysicalPathFullName));
+
+        if(StringHelper::isEndWith($physicalRootPath,'\\')){
+            $physicalRootPath= StringHelper::subString($physicalRootPath,0,strlen($physicalRootPath)-1);
+        }
+
+        if(StringHelper::isStartWith($savingImageRelativePhysicalPathFullName,'\\')){
+            $savingImageRelativePhysicalPathFullName= StringHelper::subString($savingImageRelativePhysicalPathFullName,1);
+        }
+
+        $filefullname = $physicalRootPath .'\\'. $savingImageRelativePhysicalPathFullName;
+
+//        switch ($fileextionname) {
+//            case 'png':
+//                imagepng($image, $filefullname);
+//                break;
+//            case 'gif':
+//                imagegif($image, $filefullname);
+//                break;
+//            case 'bmp':
+//                imagexbm($image, $filefullname);
+//                break;
+//            default:
+//                imagejpeg($image, $filefullname);
+//                break;
+//        }
+
+        return $filefullname;
     }
 }
 
