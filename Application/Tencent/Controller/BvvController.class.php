@@ -605,7 +605,20 @@ class BvvController extends Controller
 
     public function imageop2()
     {
-        $result = ImageHelper::saveImageResource(null, 'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\', '\\Application\\Home\\a.txt');
+        $physicalRootPath = 'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\';
+        $savingImageRelativePhysicalPathFullName = '\\Application\\Home\\a.txt';
+
+        if (StringHelper::isEndWith($physicalRootPath, '\\')) {
+            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath) - 1);
+        }
+
+        if (StringHelper::isStartWith($savingImageRelativePhysicalPathFullName, '\\')) {
+            $savingImageRelativePhysicalPathFullName = StringHelper::subString($savingImageRelativePhysicalPathFullName, 1);
+        }
+
+        $result = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
+
+        //$result = ImageHelper::saveImageResource(null, $physicalRootPath, $savingImageRelativePhysicalPathFullName);
         dump($result);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Vendor\Hiland\Utils\IO;
+
 use Vendor\Hiland\Utils\Data\StringHelper;
 
 /**
@@ -316,15 +317,15 @@ class ImageHelper
     {
         $fileextionname = strtolower(FileHelper::getFileExtensionName($savingImageRelativePhysicalPathFullName));
 
-        if(StringHelper::isEndWith($physicalRootPath,'\\')){
-            $physicalRootPath= StringHelper::subString($physicalRootPath,0,strlen($physicalRootPath)-1);
+        if (StringHelper::isEndWith($physicalRootPath, '\\')) {
+            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath) - 1);
         }
 
-        if(StringHelper::isStartWith($savingImageRelativePhysicalPathFullName,'\\')){
-            $savingImageRelativePhysicalPathFullName= StringHelper::subString($savingImageRelativePhysicalPathFullName,1);
+        if (StringHelper::isStartWith($savingImageRelativePhysicalPathFullName, '\\')) {
+            $savingImageRelativePhysicalPathFullName = StringHelper::subString($savingImageRelativePhysicalPathFullName, 1);
         }
 
-        $filefullname = $physicalRootPath .'\\'. $savingImageRelativePhysicalPathFullName;
+        $filefullname = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
 
 //        switch ($fileextionname) {
 //            case 'png':
