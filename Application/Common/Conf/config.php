@@ -43,12 +43,20 @@ return array(
     'DEFAULT_FILTER' => '', // 全局过滤函数
 
     /* 数据库配置 */
+//    'DB_TYPE' => 'mysql', // 数据库类型
+//    'DB_HOST' => 'w.rdc.sae.sina.com.cn', // 服务器地址
+//    'DB_NAME' => 'app_hilandwechat', // 数据库名
+//    'DB_USER' => 'y05ll4jnl2', // 用户名
+//    'DB_PWD' => 'w0ix0110kz30yzm3h0211h5hymhxlml244hy5x12', // 密码
+//    'DB_PORT' => '3307', // 端口
+//    'DB_PREFIX' => 'ot33binbin_', // 数据库表前缀
+
     'DB_TYPE' => 'mysql', // 数据库类型
-    'DB_HOST' => 'w.rdc.sae.sina.com.cn', // 服务器地址
-    'DB_NAME' => 'app_hilandwechat', // 数据库名
-    'DB_USER' => 'y05ll4jnl2', // 用户名
-    'DB_PWD' => 'w0ix0110kz30yzm3h0211h5hymhxlml244hy5x12', // 密码
-    'DB_PORT' => '3307', // 端口
+    'DB_HOST' => '127.0.0.1', // 服务器地址
+    'DB_NAME' => 'one2three', // 数据库名
+    'DB_USER' => 'root', // 用户名
+    'DB_PWD' => 'GQxB4LyasPhD8rqN', // 密码
+    'DB_PORT' => '3306', // 端口
     'DB_PREFIX' => 'ot33binbin_', // 数据库表前缀
 
     /* 文档模型配置 (文档模型核心配置，请勿更改) */
@@ -227,5 +235,5 @@ return array(
     'SYSTEM_DISPLAY_PAYWARNING' => true,
 
     //允许显示给用户的推进信息条目数
-    'SYSTEM_ALLOW_DISPLAY_RECOMMEND_ITEMCOUNT'=>6,
+    'SYSTEM_ALLOW_DISPLAY_RECOMMEND_ITEMCOUNT' => 6,
 );
