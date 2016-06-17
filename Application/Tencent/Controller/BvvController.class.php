@@ -605,8 +605,8 @@ class BvvController extends Controller
 
     public function imageop2()
     {
-        $physicalRootPath = 'E:\\xierDocs\\dropbox\\MyDocument\\keePass\\KeePass-2.34\\';//'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\';
-        $savingImageRelativePhysicalPathFullName = 'Application\\Home\\a.txt';
+        $physicalRootPath = 'E:\\Applications\\one2three\\';//'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\';
+        $savingImageRelativePhysicalPathFullName = 'Uploads\\xxxx.jpg';
 
 //        if (StringHelper::isEndWith($physicalRootPath, '\\')) {
 //            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath)-1);
@@ -618,6 +618,7 @@ class BvvController extends Controller
 //
 //        $result = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
 
+        $image= ImageHelper::loadImage('http://n.sinaimg.cn/news/crawl/20160617/Rgv4-fxtfrrc3774857.jpg');
         $result = ImageHelper::saveImageResource(null, $physicalRootPath, $savingImageRelativePhysicalPathFullName);
         dump($result);
     }

@@ -327,20 +327,20 @@ class ImageHelper
 
         $filefullname = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
 
-//        switch ($fileextionname) {
-//            case 'png':
-//                imagepng($image, $filefullname);
-//                break;
-//            case 'gif':
-//                imagegif($image, $filefullname);
-//                break;
-//            case 'bmp':
-//                imagexbm($image, $filefullname);
-//                break;
-//            default:
-//                imagejpeg($image, $filefullname);
-//                break;
-//        }
+        switch ($fileextionname) {
+            case 'png':
+                imagepng($image, $filefullname);
+                break;
+            case 'gif':
+                imagegif($image, $filefullname);
+                break;
+            case 'bmp':
+                imagexbm($image, $filefullname);
+                break;
+            default:
+                imagejpeg($image, $filefullname);
+                break;
+        }
 
         return $filefullname;
     }
