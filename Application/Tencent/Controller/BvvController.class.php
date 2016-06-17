@@ -609,7 +609,7 @@ class BvvController extends Controller
         $savingImageRelativePhysicalPathFullName = '\\Application\\Home\\a.txt';
 
         if (StringHelper::isEndWith($physicalRootPath, '\\')) {
-            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath));
+            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath)-2);
         }
 
         if (StringHelper::isStartWith($savingImageRelativePhysicalPathFullName, '\\')) {
