@@ -14,7 +14,6 @@ use Think\Upload;
 
 class UploadController extends AddonsController
 {
-
     public $uploader = null;
 
     /* 上传图片 */
