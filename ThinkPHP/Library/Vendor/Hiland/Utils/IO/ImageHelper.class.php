@@ -310,8 +310,9 @@ class ImageHelper
     /**
      * 保存到sae中一个临时文件并获得文件的物理绝对路径(仅在当前请求期间有效，跨请求本数据无效)
      * @param resource $image
+     * @param string $physicalRootPath 要保持图片的物理根路径
      * @param string $savingImageRelativePhysicalPathFullName 要保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
-     * @return string
+     * @return string 被保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
      */
     public static function saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName)
     {
@@ -342,7 +343,7 @@ class ImageHelper
                 break;
         }
 
-        return $filefullname;
+        return $savingImageRelativePhysicalPathFullName;
     }
 }
 

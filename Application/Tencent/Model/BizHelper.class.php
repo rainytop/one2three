@@ -139,12 +139,13 @@ class BizHelper
         $savedimagebasenamewithrelativepath = 'userqrcode/' . GuidHelper::newGuid() . '.jpg';
 
         $recommendpicurl = '';
+        $uploadPath = '/Uploads/';
+
         if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
             $domainname = C('WEIXIN_SAE_DOMAINNAME');
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
-            $uploadPath = '/Uploads/';
-            $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
+            $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
             $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
         }
 
@@ -153,6 +154,8 @@ class BizHelper
             if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
                 $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
             }else{
+                $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
+                $fileFullName= str_replace('/','\\',$fileFullName);
                 $recommendpictemppath= ImageHelper::saveImageResource($imagemegered,$fileFullName);
             }
         }

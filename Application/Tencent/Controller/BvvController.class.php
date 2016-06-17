@@ -605,6 +605,7 @@ class BvvController extends Controller
 
     public function imageop2()
     {
+        dump(__ROOT__);
         $physicalRootPath = 'E:\\Applications\\one2three\\';//'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\';
         $savingImageRelativePhysicalPathFullName = 'Uploads\\xxxx.jpg';
 
