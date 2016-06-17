@@ -619,7 +619,7 @@ class BvvController extends Controller
 //        $result = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
 
         $image= ImageHelper::loadImage('http://n.sinaimg.cn/news/crawl/20160617/Rgv4-fxtfrrc3774857.jpg');
-        $result = ImageHelper::saveImageResource(null, $physicalRootPath, $savingImageRelativePhysicalPathFullName);
+        $result = ImageHelper::saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName);
         dump($result);
     }
 }
