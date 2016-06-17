@@ -44,7 +44,7 @@ class StringHelper
         $sing = 0;
         $count = 0;
 
-        if ($length > $originalStringLength - $startPosition) {
+        if ($length<=0 || $length > $originalStringLength - $startPosition) {
             $length = $originalStringLength - $startPosition;
         }
 
