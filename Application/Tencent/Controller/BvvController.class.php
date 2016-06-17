@@ -605,11 +605,11 @@ class BvvController extends Controller
 
     public function imageop2()
     {
-        $physicalRootPath = 'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\';
+        $physicalRootPath = 'E:\\xierDocs\\dropbox\\MyDocument\\keePass\\KeePass-2.34\\';//'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\';
         $savingImageRelativePhysicalPathFullName = '\\Application\\Home\\a.txt';
 
         if (StringHelper::isEndWith($physicalRootPath, '\\')) {
-            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath)-3);
+            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath)-1);
         }
 
         if (StringHelper::isStartWith($savingImageRelativePhysicalPathFullName, '\\')) {
