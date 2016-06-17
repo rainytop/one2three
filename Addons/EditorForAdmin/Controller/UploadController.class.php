@@ -21,7 +21,7 @@ class UploadController extends AddonsController{
 		$setting = C('EDITOR_UPLOAD');
 
 		/* 调用文件上传组件上传文件 */
-        $this->uploader = new Upload($setting, 'Sae');  //sae默认
+        $this->uploader = new Upload($setting);
 		$info   = $this->uploader->upload($_FILES);
 		if($info){
 			$url = $info['imgFile']['savepath'].$info['imgFile']['savename'];
