@@ -592,18 +592,21 @@ class BvvController extends Controller
         dump(EnvironmentHelper::isPrivateIP($ip));
     }
 
-    public function ipop($ip = '192.168.1.1'){
-        $result= preg_match(RegexHelper::IP,$ip);
+    public function ipop($ip = '192.168.1.1')
+    {
+        $result = preg_match(RegexHelper::IP, $ip);
         dump($result);
     }
 
-    public  function isloaclserverop($ip='202.102.134.68'){
+    public function isloaclserverop($ip = '202.102.134.68')
+    {
         dump(EnvironmentHelper::isLocalServer($ip));
     }
 
-    public function imageop2(){
-        $result= ImageHelper::saveImageResource(null,'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\','\\Application\\Home\\a.txt');
-        return $result;
+    public function imageop2()
+    {
+        $result = ImageHelper::saveImageResource(null, 'E:\\MyWorkSpace\\MyProjectPHP\\多店铺商城\\shequfuwu\\', '\\Application\\Home\\a.txt');
+        dump($result);
     }
 }
 
