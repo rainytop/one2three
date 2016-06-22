@@ -575,8 +575,9 @@ class BvvController extends Controller
         //$url = iconv("UTF-8", "gb2312", $url);
         $imagemegered = imagecreatefromjpeg($url);
 
-        header('Content-Type: image/jpeg');
         ob_clean();
+        header('Content-Type: image/jpeg');
+
         // ???
         imagejpeg($imagemegered);
         // ????
