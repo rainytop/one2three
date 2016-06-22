@@ -89,23 +89,12 @@ class WechatHelper
             }
         }
 
-        // 1. 初始化
-        $ch = curl_init();
+        $reuqestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appID&secret=$appSecret";
+        $output = NetHelper::request($reuqestUrl);
 
-        // 2. 设置选项，包括URL
-        $url = sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", $appID, $appSecret);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-
-        // 3. 执行并获取HTML文档内容
-        $output = curl_exec($ch);
-        $result = $output;
-        // 检查错误、你可以加一段检查错误的语句（虽然这并不是必需的）
         if ($output === FALSE) {
             // 不解析返回的json信息
         } else {
-            // $result = $output;
             $result = json_decode($output, true);
             $result = $result["access_token"];
 
@@ -114,10 +103,37 @@ class WechatHelper
             }
         }
 
-        // 4. 释放curl句柄
-        curl_close($ch);
-
         return $result;
+
+//        // 1. 初始化
+//        $ch = curl_init();
+//
+//        // 2. 设置选项，包括URL
+//        $url = sprintf("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s", $appID, $appSecret);
+//        curl_setopt($ch, CURLOPT_URL, $url);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
+//
+//        // 3. 执行并获取HTML文档内容
+//        $output = curl_exec($ch);
+//        $result = $output;
+//        // 检查错误、你可以加一段检查错误的语句（虽然这并不是必需的）
+//        if ($output === FALSE) {
+//            // 不解析返回的json信息
+//        } else {
+//            // $result = $output;
+//            $result = json_decode($output, true);
+//            $result = $result["access_token"];
+//
+//            if ($useCache == true) {
+//                S($cachekey, $result, $cacheSeconds);
+//            }
+//        }
+//
+//        // 4. 释放curl句柄
+//        curl_close($ch);
+
+//        return $result;
     }
 
     /**
