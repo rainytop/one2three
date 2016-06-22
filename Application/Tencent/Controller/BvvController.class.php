@@ -634,6 +634,7 @@ class BvvController extends Controller
         $subscribeuserinfo= UserinfoModel::getByKey(100002);
         //dump($subscribeuserinfo);
 
+        //$userData['weixinopenid']
         $userData['weixinname'] = $subscribeuserinfo['nickname'];
         $userData['displayname'] = $subscribeuserinfo['nickname'];
         $userData['usersex'] = $subscribeuserinfo['sex'];

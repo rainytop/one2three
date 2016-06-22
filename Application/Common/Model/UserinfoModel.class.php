@@ -2,6 +2,7 @@
 namespace Common\Model;
 
 use Think\Model;
+use Vendor\Hiland\Utils\DataModel\ModelMate;
 
 class UserinfoModel extends Model
 {
@@ -79,9 +80,10 @@ class UserinfoModel extends Model
      */
     public static function getByOpenID($openID)
     {
-        $userinfo = new UserinfoModel();
+        //$userinfo = new UserinfoModel();
+        $mate= new ModelMate('userinfo');
         $condition['weixinopenid'] = $openID;
-        $userinfo = $userinfo->where($condition)->find();
+        $userinfo = $mate->find($condition);//->where($condition)->find();
         return $userinfo;
     }
 
