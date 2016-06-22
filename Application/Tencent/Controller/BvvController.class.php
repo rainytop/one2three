@@ -635,14 +635,14 @@ class BvvController extends Controller
         //dump($subscribeuserinfo);
 
         //$userData['weixinopenid']
-        $userData['weixinname'] = $subscribeuserinfo['nickname'];
-        $userData['displayname'] = $subscribeuserinfo['nickname'];
-        $userData['usersex'] = $subscribeuserinfo['sex'];
-        $userData['weixinopenid'] = $subscribeuserinfo['openid'];
-        $userData['userprovince'] = $subscribeuserinfo['province'];
-        $userData['usercity'] = $subscribeuserinfo['city'];
-        $userData['usercountry'] = $subscribeuserinfo['country'];
-        $userData['headurl'] = $subscribeuserinfo['headimgurl'];
+        $userData['weixinname'] = $subscribeuserinfo['weixinname'];
+        $userData['displayname'] = $subscribeuserinfo['displayname'];
+        $userData['usersex'] = $subscribeuserinfo['usersex'];
+        $userData['weixinopenid'] = $subscribeuserinfo['weixinopenid'];
+        $userData['userprovince'] = $subscribeuserinfo['userprovince'];
+        $userData['usercity'] = $subscribeuserinfo['usercity'];
+        $userData['usercountry'] = $subscribeuserinfo['usercountry'];
+        $userData['headurl'] = $subscribeuserinfo['headurl'];
         $userData['jointime'] = time();
 
         $result= UserinfoModel::interact($userData);
