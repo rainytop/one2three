@@ -435,43 +435,32 @@ class ImageHelper
         return $savingImageRelativePhysicalPathFullName;
     }
 
-    public static function imageCreateFromBMP($imageFileName)
+    public static function imageCreateFromBMP($filename)
     {
-        //Ouverture du fichier en mode binaire
-        if (!$f1 = fopen($imageFileName, "rb")) {
+        if (!$f1 = fopen($filename, "rb"))
             return FALSE;
-        }
 
-        //1 : Chargement des ent�tes FICHIER
         $FILE = unpack("vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread($f1, 14));
-        if ($FILE['file_type'] != 19778) {
+        if ($FILE['file_type'] != 19778)
             return FALSE;
-        }
 
-        //2 : Chargement des ent�tes BMP
-        $BMP = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' .
-            '/Vcompression/Vsize_bitmap/Vhoriz_resolution' .
-            '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1, 40));
+        $BMP = unpack('Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' . '/Vvert_resolution/Vcolors_used/Vcolors_important', fread($f1, 40));
         $BMP['colors'] = pow(2, $BMP['bits_per_pixel']);
-        if ($BMP['size_bitmap'] == 0) {
+        if ($BMP['size_bitmap'] == 0)
             $BMP['size_bitmap'] = $FILE['file_size'] - $FILE['bitmap_offset'];
-        }
         $BMP['bytes_per_pixel'] = $BMP['bits_per_pixel'] / 8;
         $BMP['bytes_per_pixel2'] = ceil($BMP['bytes_per_pixel']);
         $BMP['decal'] = ($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
         $BMP['decal'] -= floor($BMP['width'] * $BMP['bytes_per_pixel'] / 4);
         $BMP['decal'] = 4 - (4 * $BMP['decal']);
-        if ($BMP['decal'] == 4) {
+        if ($BMP['decal'] == 4)
             $BMP['decal'] = 0;
-        }
 
-        //3 : Chargement des couleurs de la palette
         $PALETTE = array();
-        if ($BMP['colors'] < 16777216) {
+        if ($BMP['colors'] < 16777216 && $BMP['colors'] != 65536) {
             $PALETTE = unpack('V' . $BMP['colors'], fread($f1, $BMP['colors'] * 4));
         }
 
-        //4 : Cr�ation de l'image
         $IMG = fread($f1, $BMP['size_bitmap']);
         $VIDE = chr(0);
 
@@ -481,11 +470,24 @@ class ImageHelper
         while ($Y >= 0) {
             $X = 0;
             while ($X < $BMP['width']) {
-                if ($BMP['bits_per_pixel'] == 24)
+                if ($BMP['bits_per_pixel'] == 32) {
+                    $COLOR = unpack("V", substr($IMG, $P, 3));
+                    $B = ord(substr($IMG, $P, 1));
+                    $G = ord(substr($IMG, $P + 1, 1));
+                    $R = ord(substr($IMG, $P + 2, 1));
+                    $color = imagecolorexact($res, $R, $G, $B);
+                    if ($color == -1)
+                        $color = imagecolorallocate($res, $R, $G, $B);
+                    $COLOR[0] = $R * 256 * 256 + $G * 256 + $B;
+                    $COLOR[1] = $color;
+                } elseif ($BMP['bits_per_pixel'] == 24) {
                     $COLOR = unpack("V", substr($IMG, $P, 3) . $VIDE);
-                elseif ($BMP['bits_per_pixel'] == 16) {
-                    $COLOR = unpack("n", substr($IMG, $P, 2));
-                    $COLOR[1] = $PALETTE[$COLOR[1] + 1];
+                } elseif ($BMP['bits_per_pixel'] == 16) {
+                    $COLOR = unpack("v", substr($IMG, $P, 2));
+                    $blue = (($COLOR[1] & 0x001f) << 3) + 7;
+                    $green = (($COLOR[1] & 0x03e0) >> 2) + 7;
+                    $red = (($COLOR[1] & 0xfc00) >> 7) + 7;
+                    $COLOR[1] = $red * 65536 + $green * 256 + $blue;
                 } elseif ($BMP['bits_per_pixel'] == 8) {
                     $COLOR = unpack("n", $VIDE . substr($IMG, $P, 1));
                     $COLOR[1] = $PALETTE[$COLOR[1] + 1];
@@ -524,11 +526,155 @@ class ImageHelper
             $Y--;
             $P += $BMP['decal'];
         }
-
-        //Fermeture du fichier
         fclose($f1);
 
         return $res;
+    }
+
+    public static function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0)
+    {
+        if (!in_array($bit, array(1, 4, 8, 16, 24, 32))) {
+            $bit = 8;
+        } else if ($bit == 32) // todo:32 bit
+        {
+            $bit = 24;
+        }
+
+        $bits = pow(2, $bit);
+
+        // 调整调色板
+        imagetruecolortopalette($im, true, $bits);
+        $width = imagesx($im);
+        $height = imagesy($im);
+        $colors_num = imagecolorstotal($im);
+
+        if ($bit <= 8) {
+            // 颜色索引
+            $rgb_quad = '';
+            for ($i = 0; $i < $colors_num; $i++) {
+                $colors = imagecolorsforindex($im, $i);
+                $rgb_quad .= chr($colors['blue']) . chr($colors['green']) . chr($colors['red']) . "\0";
+            }
+
+            // 位图数据
+            $bmp_data = '';
+
+            // 非压缩
+            if ($compression == 0 || $bit < 8) {
+                if (!in_array($bit, array(1, 4, 8))) {
+                    $bit = 8;
+                }
+
+                $compression = 0;
+
+                // 每行字节数必须为4的倍数，补齐。
+                $extra = '';
+                $padding = 4 - ceil($width / (8 / $bit)) % 4;
+                if ($padding % 4 != 0) {
+                    $extra = str_repeat("\0", $padding);
+                }
+
+                for ($j = $height - 1; $j >= 0; $j--) {
+                    $i = 0;
+                    while ($i < $width) {
+                        $bin = 0;
+                        $limit = $width - $i < 8 / $bit ? (8 / $bit - $width + $i) * $bit : 0;
+
+                        for ($k = 8 - $bit; $k >= $limit; $k -= $bit) {
+                            $index = imagecolorat($im, $i, $j);
+                            $bin |= $index << $k;
+                            $i++;
+                        }
+
+                        $bmp_data .= chr($bin);
+                    }
+
+                    $bmp_data .= $extra;
+                }
+            } // RLE8 压缩
+            else if ($compression == 1 && $bit == 8) {
+                for ($j = $height - 1; $j >= 0; $j--) {
+                    $last_index = "\0";
+                    $same_num = 0;
+                    for ($i = 0; $i <= $width; $i++) {
+                        $index = imagecolorat($im, $i, $j);
+                        if ($index !== $last_index || $same_num > 255) {
+                            if ($same_num != 0) {
+                                $bmp_data .= chr($same_num) . chr($last_index);
+                            }
+
+                            $last_index = $index;
+                            $same_num = 1;
+                        } else {
+                            $same_num++;
+                        }
+                    }
+
+                    $bmp_data .= "\0\0";
+                }
+
+                $bmp_data .= "\0\1";
+            }
+
+            $size_quad = strlen($rgb_quad);
+            $size_data = strlen($bmp_data);
+        } else {
+            // 每行字节数必须为4的倍数，补齐。
+            $extra = '';
+            $padding = 4 - ($width * ($bit / 8)) % 4;
+            if ($padding % 4 != 0) {
+                $extra = str_repeat("\0", $padding);
+            }
+
+            // 位图数据
+            $bmp_data = '';
+
+            for ($j = $height - 1; $j >= 0; $j--) {
+                for ($i = 0; $i < $width; $i++) {
+                    $index = imagecolorat($im, $i, $j);
+                    $colors = imagecolorsforindex($im, $index);
+
+                    if ($bit == 16) {
+                        $bin = 0 << $bit;
+
+                        $bin |= ($colors['red'] >> 3) << 10;
+                        $bin |= ($colors['green'] >> 3) << 5;
+                        $bin |= $colors['blue'] >> 3;
+
+                        $bmp_data .= pack("v", $bin);
+                    } else {
+                        $bmp_data .= pack("c*", $colors['blue'], $colors['green'], $colors['red']);
+                    }
+
+                    // todo: 32bit;
+                }
+
+                $bmp_data .= $extra;
+            }
+
+            $size_quad = 0;
+            $size_data = strlen($bmp_data);
+            $colors_num = 0;
+        }
+
+        // 位图文件头
+        $file_header = "BM" . pack("V3", 54 + $size_quad + $size_data, 0, 54 + $size_quad);
+
+        // 位图信息头
+        $info_header = pack("V3v2V*", 0x28, $width, $height, 1, $bit, $compression, $size_data, 0, 0, $colors_num, 0);
+
+        // 写入文件
+        if ($filename != '') {
+            $fp = fopen($filename, "wb");
+
+            fwrite($fp, $file_header);
+            fwrite($fp, $info_header);
+            fwrite($fp, $rgb_quad);
+            fwrite($fp, $bmp_data);
+            fclose($fp);
+
+            return true;
+        }
     }
 }
 
