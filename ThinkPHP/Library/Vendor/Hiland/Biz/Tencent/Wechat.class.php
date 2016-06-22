@@ -61,7 +61,7 @@ class Wechat
         ));
         // 设置错误处理函数，将错误通过文本消息回复显示
         
-        $this->originalRequestData = $GLOBALS['HTTP_RAW_POST_DATA'];
+        $this->originalRequestData = file_get_contents("php://input");//$GLOBALS['HTTP_RAW_POST_DATA'];
         $xml = (array) simplexml_load_string($this->originalRequestData, 'SimpleXMLElement', LIBXML_NOCDATA);
         
         $this->request = array_change_key_case($xml, CASE_LOWER);
