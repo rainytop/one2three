@@ -600,6 +600,21 @@ class BvvController extends Controller
 
     public function imageop3()
     {
+        $url = 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
+        $srcData = '';
+        if (function_exists("file_get_contents")) {
+            $srcData = file_get_contents($url);
+        }
+
+        $image = @ImageCreateFromString($srcData);
+
+        ob_clean();
+        header('Content-Type:application/x-bmp');
+        imagepng($image);
+    }
+
+    public function imageop4()
+    {
         $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
         $srcData = '';
         if (function_exists("file_get_contents")) {
