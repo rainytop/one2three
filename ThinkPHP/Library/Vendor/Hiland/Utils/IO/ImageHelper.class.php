@@ -317,7 +317,7 @@ class ImageHelper
      * @param string $imageType
      * @param int $imageDisplayQuality
      */
-    public static function display($image, $imageType = 'jpg', $imageDisplayQuality = 1)
+    public static function display($image, $imageType = 'jpg', $imageDisplayQuality = 80)
     {
         $functionName = self::getImageOutputFunction($imageType);
 
