@@ -165,12 +165,28 @@ class ImageHelper
      * @param string $imageFileName
      *            文件全路径
      * @return string
+     */
+    public static function getImageType($imageFileName)
+    {
+        if( extension_loaded('exif')){
+            return self::getImageTypeFromExif($imageFileName);
+        }else{
+            return self::getImageTypeFromImageSize($imageFileName);
+        }
+    }
+
+    /**
+     * 获取图片的类型
+     *
+     * @param string $imageFileName
+     *            文件全路径
+     * @return string
      *
      * php.ini中需要开通这个两个扩展模块
      * extension=php_mbstring.dll
      * extension=php_exif.dll
      */
-    public static function getImageType($imageFileName)
+    private static function getImageTypeFromExif($imageFileName)
     {
         $result = 'jpg';
         $out = exif_imagetype($imageFileName);
@@ -227,50 +243,60 @@ class ImageHelper
         }
 
         return $result;
+    }
 
-//        $result = 'jpg';
-//        $array = getimagesize($imageFileName);
-//        // 索引 2 给出的是图像的类型，返回的是数字，
-//        // 其中1 = GIF，2 = JPG，3 = PNG，4 = SWF，5 = PSD，
-//        // 6 = BMP，7 = TIFF(intel byte order)，
-//        // 8 = TIFF(motorola byte order)，9 = JPC，
-//        // 10 = JP2，11 = JPX，12 = JB2，13 = SWC，
-//        // 14 = IFF，15 = WBMP，16 = XBM
-//
-//        // 索引 mime 给出的是图像的 MIME信息(例如image/jpeg)，此信息可以用来
-//        // 在 HTTP Content-type 头信息中发送正确的信息，如：
-//        // header("Content-type: image/jpeg");
-//
-//        switch ($array[2]) {
-//            case 1:
-//                $result = 'gif';
-//                break;
-//            case 2:
-//                $result = 'jpg';
-//                break;
-//            case 3:
-//                $result = 'png';
-//                break;
-//            case 4:
-//                $result = 'swf';
-//                break;
-//            case 5:
-//                $result = 'psd';
-//                break;
-//            case 6:
-//            case 15:
-//                $result = 'bmp';
-//                break;
-//            case 7:
-//            case 8:
-//                $result = 'tiff';
-//                break;
-//            default:
-//                $result = 'jpg';
-//                break;
-//        }
-//
-//        return $result;
+    /**
+     * 获取图片的类型
+     *
+     * @param string $imageFileName
+     *            文件全路径
+     * @return string
+     */
+    private static function getImageTypeFromImageSize($imageFileName)
+    {
+        $result = 'jpg';
+        $array = getimagesize($imageFileName);
+        // 索引 2 给出的是图像的类型，返回的是数字，
+        // 其中1 = GIF，2 = JPG，3 = PNG，4 = SWF，5 = PSD，
+        // 6 = BMP，7 = TIFF(intel byte order)，
+        // 8 = TIFF(motorola byte order)，9 = JPC，
+        // 10 = JP2，11 = JPX，12 = JB2，13 = SWC，
+        // 14 = IFF，15 = WBMP，16 = XBM
+
+        // 索引 mime 给出的是图像的 MIME信息(例如image/jpeg)，此信息可以用来
+        // 在 HTTP Content-type 头信息中发送正确的信息，如：
+        // header("Content-type: image/jpeg");
+
+        switch ($array[2]) {
+            case 1:
+                $result = 'gif';
+                break;
+            case 2:
+                $result = 'jpg';
+                break;
+            case 3:
+                $result = 'png';
+                break;
+            case 4:
+                $result = 'swf';
+                break;
+            case 5:
+                $result = 'psd';
+                break;
+            case 6:
+            case 15:
+                $result = 'bmp';
+                break;
+            case 7:
+            case 8:
+                $result = 'tiff';
+                break;
+            default:
+                $result = 'jpg';
+                break;
+        }
+
+        return $result;
     }
 
     /**
