@@ -600,7 +600,7 @@ class BvvController extends Controller
 
     public function imageop3()
     {
-        $url = 'http://image2.958shop.com/p/2011/07/04/78917228215594.bmp';
+        $url = 'http://app.rainytop.com/ott/public/temp/one_20141127170506698.bmp';
 //        $srcData = '';
 //        if (function_exists("file_get_contents")) {
 //            $srcData = file_get_contents($url);
