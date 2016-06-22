@@ -681,6 +681,13 @@ class BvvController extends Controller
     }
 
 
+    public function extensionloadedop($modulename='exif'){
+        if( extension_loaded($modulename)){
+            dump("$modulename 存在");
+        }else{
+            dump("$modulename NOOOOOOOOOOO");
+        }
+    }
 }
 
 ?>

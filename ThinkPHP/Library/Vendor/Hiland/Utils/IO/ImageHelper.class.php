@@ -165,6 +165,10 @@ class ImageHelper
      * @param string $imageFileName
      *            文件全路径
      * @return string
+     *
+     * php.ini中需要开通这个两个扩展模块
+     * extension=php_mbstring.dll
+     * extension=php_exif.dll
      */
     public static function getImageType($imageFileName)
     {
