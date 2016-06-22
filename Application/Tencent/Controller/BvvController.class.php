@@ -601,12 +601,14 @@ class BvvController extends Controller
     public function imageop3()
     {
         $url = 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
-        $srcData = '';
-        if (function_exists("file_get_contents")) {
-            $srcData = file_get_contents($url);
-        }
+//        $srcData = '';
+//        if (function_exists("file_get_contents")) {
+//            $srcData = file_get_contents($url);
+//        }
+//
+//        $image = @ImageCreateFromString($srcData);
 
-        $image = @ImageCreateFromString($srcData);
+        $image= ImageHelper::imageCreateFromBMP($url);
 
         ob_clean();
         header('Content-Type:image/jpeg');
