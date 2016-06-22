@@ -129,7 +129,7 @@ class ImageHelper
             case 'png':
                 $image = imagecreatefrompng($imageFileName);
                 break;
-            case 'bmp':
+            case 'wbmp':
                 $image = imagecreatefromwbmp($imageFileName);
                 break;
             case 'gif':
@@ -168,9 +168,9 @@ class ImageHelper
      */
     public static function getImageType($imageFileName)
     {
-        if( extension_loaded('exif')){
+        if (extension_loaded('exif')) {
             return self::getImageTypeFromExif($imageFileName);
-        }else{
+        } else {
             return self::getImageTypeFromImageSize($imageFileName);
         }
     }
