@@ -563,10 +563,13 @@ class BvvController extends Controller
         imagedestroy($imagemegered);
     }
 
-    public function imageop($url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png')
+    public function imageop($url='png')
     {
         $url= strtolower($url);
         switch ($url){
+            case 'png':
+                $url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png';
+                break;
             case 'jpg':
                 $url= 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
                 break;
