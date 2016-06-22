@@ -25,6 +25,8 @@ class UserinfoModel extends Model
             // 通过openid判断此用户是否在系统内存在
             $openid = $data['weixinopenid'];
             $targetuser = self::getByOpenID($openid);
+
+            dump($targetuser);
             if (empty($targetuser)) {
                 $recordID = $model->data($data)->add(); // 添加基础内容
 
