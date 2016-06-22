@@ -64,8 +64,6 @@ class BizHelper
 
         $recommenduseravatar = $recommendUser['headurl'];
 
-
-
         // 2、加载背景图片
         $qrcodebgurl = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_BGPIC');
         $qrcodebgurl= str_replace('/','\\',$qrcodebgurl);
@@ -75,11 +73,14 @@ class BizHelper
         $imagebg = imagecreatefromjpeg($qrcodebgurl);
         $imagemegered = imagecreatetruecolor(imagesx($imagebg), imagesy($imagebg));
         imagecopy($imagemegered, $imagebg, 0, 0, 0, 0, imagesx($imagebg), imagesy($imagebg));
+        return $recommenduseravatar;
 
         if (empty($recommenduseravatar)) {
             $recommenduseravatar = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
             $recommenduseravatar= str_replace('/','\\',$recommenduseravatar);
         }
+        return $recommenduseravatar;
+
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
 
@@ -152,7 +153,7 @@ class BizHelper
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
             $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
-            return $fileFullName;
+            //return $fileFullName;
             $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
         }
 
