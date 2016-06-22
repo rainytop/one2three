@@ -13,6 +13,7 @@ use Common\Common\ConfigHelper;
 use Common\Model\UserinfoModel;
 use Common\Model\UserrolesModel;
 use Hiland\Model\ViewMate;
+use Think\App;
 use Think\Controller;
 use Vendor\Hiland\Utils\Data\ArrayHelper;
 
