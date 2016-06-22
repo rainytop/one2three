@@ -571,7 +571,7 @@ class BvvController extends Controller
                 $url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png';
                 break;
             case 'jpg':
-                $url= 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
+                $url= 'http://b.hiphotos.baidu.com/zhidao/pic/item/8326cffc1e178a8240e44d28f403738da877e85a.jpg';
                 break;
             case 'bmp':
                 $url= 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
