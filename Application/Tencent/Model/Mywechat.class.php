@@ -49,6 +49,7 @@ class Mywechat extends Wechat
 
         $subscribeopenid = $this->getRequestOpenid();
         $subscribeuserinfo = WechatHelper::getUserInfo($subscribeopenid);
+        
 
         $userData['weixinname'] = $subscribeuserinfo->nickname;
         $userData['displayname'] = $subscribeuserinfo->nickname;

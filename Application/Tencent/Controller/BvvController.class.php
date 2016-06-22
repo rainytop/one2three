@@ -653,6 +653,11 @@ class BvvController extends Controller
             dump('bad');
         }
     }
+
+    public function  getuserinfoop($openid='oOjPas1SKwihAMngxQxCqmdYGiU4'){
+        $result= WechatHelper::getUserInfo($openid);
+        dump($result);
+    }
 }
 
 ?>
