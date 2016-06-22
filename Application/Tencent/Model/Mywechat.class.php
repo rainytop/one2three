@@ -153,6 +153,8 @@ class Mywechat extends Wechat
                 $recommenduserid = 0;
                 $userinfo = UserinfoModel::getByOpenID($this->getRequestOpenid());
 
+                $this->responseText('ssss');
+
                 // 2、生成推广二维码并保持进入sae storage中
                 $patharray = BizHelper::generateAndSaveQRCode($userinfo, true);
                 $recommendpicurl = $patharray['foreverurl'];
@@ -162,7 +164,7 @@ class Mywechat extends Wechat
                     UserinfoModel::interact($userinfo);
                 }
 
-                $this->responseText($tempphysicalpath);
+                //$this->responseText($tempphysicalpath);
                 // 3、上传保存的图片到微信服务器，得到保存文件的mediaid
                 $mediaid = WechatHelper::uploadMedia($tempphysicalpath); //根据用户生成具体的推广二维码
 
