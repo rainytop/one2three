@@ -575,13 +575,15 @@ class BvvController extends Controller
         //$url = iconv("UTF-8", "gb2312", $url);
         $imagemegered = ImageHelper::loadImage($url); //imagecreatefromjpeg($url);
 
-        ob_clean();
-        header('Content-Type:image/jpeg');
+        dump($imagemegered);
 
-        // ???
-        imagejpeg($imagemegered);
-        // ????
-        imagedestroy($imagemegered);
+//        ob_clean();
+//        header('Content-Type:image/jpeg');
+//
+//        // ???
+//        imagejpeg($imagemegered);
+//        // ????
+//        imagedestroy($imagemegered);
     }
 
     public function datehelperop()
