@@ -64,6 +64,8 @@ class BizHelper
 
         $recommenduseravatar = $recommendUser['headurl'];
 
+        return $qrcodepicurl;
+
         // 2、加载背景图片
         $qrcodebgurl = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_BGPIC');
 
@@ -78,7 +80,7 @@ class BizHelper
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
 
-        return $qrcodepicurl;
+
 
         switch ($bgType) {
             case 'xfbbd':
