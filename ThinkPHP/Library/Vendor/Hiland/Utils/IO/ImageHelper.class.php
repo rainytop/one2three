@@ -337,6 +337,66 @@ class ImageHelper
     }
 
     /**
+     * 保存到物理绝对路径中
+     * @param resource $image
+     * @param int $imageDisplayQuality 图片质量，jpg格式适用。取值范围0-100，默认为100
+     * @param string $filePhysicalFullName 要保存的图片的物理路径全名称（物理路径、文件名和扩展名）
+     * @return string 被保存的图片的物理路径全名称（物理路径、文件名和扩展名）
+     */
+    public static function save($image,$filePhysicalFullName,$imageDisplayQuality=80)
+    {
+        $filePhysicalFullName= str_replace('/','\\',$filePhysicalFullName);
+        $imageType = strtolower(FileHelper::getFileExtensionName($filePhysicalFullName));
+
+        $functionName = self::getImageOutputFunction($imageType);
+
+        if (function_exists($functionName)) {
+            $functionName($image, $filePhysicalFullName, $imageDisplayQuality);
+        }
+
+        return $filePhysicalFullName;
+    }
+
+    /**
+     * 保存到sae中一个临时文件并获得文件的物理绝对路径(仅在当前请求期间有效，跨请求本数据无效)
+     * @param resource $image
+     * @param string $physicalRootPath 要保持图片的物理根路径
+     * @param string $savingImageRelativePhysicalPathFullName 要保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
+     * @return string 被保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
+     */
+    public static function saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName)
+    {
+        $fileextionname = strtolower(FileHelper::getFileExtensionName($savingImageRelativePhysicalPathFullName));
+
+        if (StringHelper::isEndWith($physicalRootPath, '\\')) {
+            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath) - 1);
+        }
+
+        if (StringHelper::isStartWith($savingImageRelativePhysicalPathFullName, '\\')) {
+            $savingImageRelativePhysicalPathFullName = StringHelper::subString($savingImageRelativePhysicalPathFullName, 1);
+        }
+
+        $filefullname = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
+
+        switch ($fileextionname) {
+            case 'png':
+                imagepng($image, $filefullname);
+                break;
+            case 'gif':
+                imagegif($image, $filefullname);
+                break;
+            case 'bmp':
+                imagexbm($image, $filefullname);
+                break;
+            default:
+                imagejpeg($image, $filefullname);
+                break;
+        }
+
+        return $savingImageRelativePhysicalPathFullName;
+    }
+
+    /**
      * 根据图片文件的扩展名称，确定图片的输出函数
      *
      * @param string $imageExtensionFileNameWithoutDot
@@ -406,45 +466,14 @@ class ImageHelper
         return $array;
     }
 
+
+
     /**
-     * 保存到sae中一个临时文件并获得文件的物理绝对路径(仅在当前请求期间有效，跨请求本数据无效)
-     * @param resource $image
-     * @param string $physicalRootPath 要保持图片的物理根路径
-     * @param string $savingImageRelativePhysicalPathFullName 要保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
-     * @return string 被保存的图片的带相对物理路径的全名称（物理路径、文件名和扩展名）
+     * 加载bmb格式的图片进入内存成为资源
+     * 此方法谨慎使用，有bug容易内存溢出
+     * @param $filename
+     * @return bool|resource
      */
-    public static function saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName)
-    {
-        $fileextionname = strtolower(FileHelper::getFileExtensionName($savingImageRelativePhysicalPathFullName));
-
-        if (StringHelper::isEndWith($physicalRootPath, '\\')) {
-            $physicalRootPath = StringHelper::subString($physicalRootPath, 0, strlen($physicalRootPath) - 1);
-        }
-
-        if (StringHelper::isStartWith($savingImageRelativePhysicalPathFullName, '\\')) {
-            $savingImageRelativePhysicalPathFullName = StringHelper::subString($savingImageRelativePhysicalPathFullName, 1);
-        }
-
-        $filefullname = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
-
-        switch ($fileextionname) {
-            case 'png':
-                imagepng($image, $filefullname);
-                break;
-            case 'gif':
-                imagegif($image, $filefullname);
-                break;
-            case 'bmp':
-                imagexbm($image, $filefullname);
-                break;
-            default:
-                imagejpeg($image, $filefullname);
-                break;
-        }
-
-        return $savingImageRelativePhysicalPathFullName;
-    }
-
     public static function imageCreateFromBMP($filename)
     {
         if (!$f1 = fopen($filename, "rb"))

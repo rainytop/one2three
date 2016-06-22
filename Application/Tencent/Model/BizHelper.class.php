@@ -79,6 +79,7 @@ class BizHelper
         }
 
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
+        //$imageAvatarType= ImageHelper::getImageType($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
 
         //return $recommenduseravatar;
@@ -156,7 +157,10 @@ class BizHelper
             $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
             $fileFullName= str_replace('/','\\',$fileFullName);
             //return $fileFullName;
-            $recommendpicurl= ImageHelper::saveImageResource($imagemegered,$fileFullName);
+            $fileFullName= ImageHelper::save($imagemegered,$fileFullName);
+
+            $recommendpicurl= $uploadPath . $savedimagebasenamewithrelativepath;
+
 //            $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
 //            //return $fileFullName;
 //            $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
@@ -170,6 +174,8 @@ class BizHelper
 //                $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
 //                $fileFullName= str_replace('/','\\',$fileFullName);
 //                $recommendpictemppath= ImageHelper::saveImageResource($imagemegered,$fileFullName);
+
+                $recommendpictemppath= $fileFullName;
             }
         }
 
