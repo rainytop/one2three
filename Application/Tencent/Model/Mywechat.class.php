@@ -61,9 +61,9 @@ class Mywechat extends Wechat
         $userData['jointime'] = time();
 
         $userID = UserinfoModel::interact($userData);
-        if(!$userID){
-            $this->responseText('更新用户出错了');
-        }
+//        if(!$userID){
+//            $this->responseText('更新用户出错了');
+//        }
 
         // 2、展示告知用户已经成为会员，及其推荐人信息
         if ($recommendUserID == 0) {
