@@ -67,7 +67,6 @@ class BizHelper
         // 2、加载背景图片
         $qrcodebgurl = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_BGPIC');
         $qrcodebgurl= str_replace('/','\\',$qrcodebgurl);
-        //return $qrcodebgurl;
 
         // 3、将推广二维码、用户头像、背景图片进行合并
         $imagebg = imagecreatefromjpeg($qrcodebgurl);
@@ -81,6 +80,8 @@ class BizHelper
 
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
+
+        return $recommenduseravatar;
 
         switch ($bgType) {
             case 'xfbbd':
@@ -103,7 +104,7 @@ class BizHelper
                 break;
         }
 
-        return $recommenduseravatar;
+
 
         // 4、添加文字
         $textfont = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_TEXTFONT');
