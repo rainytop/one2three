@@ -563,25 +563,25 @@ class BvvController extends Controller
         imagedestroy($imagemegered);
     }
 
-    public function imageop($url='png')
+    public function imageop($url = 'png')
     {
-        $url= strtolower($url);
-        switch ($url){
+        $url = strtolower($url);
+        switch ($url) {
             case 'png':
                 $url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png';
                 break;
             case 'jpg':
-                $url= 'http://b.hiphotos.baidu.com/zhidao/pic/item/8326cffc1e178a8240e44d28f403738da877e85a.jpg';
+                $url = 'http://b.hiphotos.baidu.com/zhidao/pic/item/8326cffc1e178a8240e44d28f403738da877e85a.jpg';
                 break;
             case 'bmp':
-                $url= 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
+                $url = 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
                 break;
             case 'un':
                 $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
                 break;
         }
 
-        $imageType= ImageHelper::getImageType($url);
+        $imageType = ImageHelper::getImageType($url);
         dump($imageType);
 
         //$url = iconv("UTF-8", "gb2312", $url);
@@ -598,7 +598,8 @@ class BvvController extends Controller
 //        imagedestroy($imagemegered);
     }
 
-    public function imageop3(){
+    public function imageop3()
+    {
         $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
         $srcData = '';
         if (function_exists("file_get_contents")) {
@@ -607,6 +608,8 @@ class BvvController extends Controller
 
         $image = @ImageCreateFromString($srcData);
 
+        ob_clean();
+        header('Content-Type:image/png');
         imagepng($image);
     }
 
@@ -693,10 +696,11 @@ class BvvController extends Controller
     }
 
 
-    public function extensionloadedop($modulename='exif'){
-        if( extension_loaded($modulename)){
+    public function extensionloadedop($modulename = 'exif')
+    {
+        if (extension_loaded($modulename)) {
             dump("$modulename 存在");
-        }else{
+        } else {
             dump("$modulename NOOOOOOOOOOO");
         }
     }
