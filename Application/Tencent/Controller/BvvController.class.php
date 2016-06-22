@@ -563,7 +563,7 @@ class BvvController extends Controller
         imagedestroy($imagemegered);
     }
 
-    public function imageop($url = 'http://www.lupaworld.com/data/attachment/portal/201407/30/104433y8oso8kkp0o6kcf8.jpg')
+    public function imageop($url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png')
     {
 
         if (empty($url)) {
