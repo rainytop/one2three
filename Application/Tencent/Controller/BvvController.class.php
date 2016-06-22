@@ -611,8 +611,8 @@ class BvvController extends Controller
         $image= ImageHelper::imageCreateFromBMP($url);
 
         ob_clean();
-        header('Content-Type:image/jpeg');
-        imagejpeg($image);
+        header('Content-Type:image/png');
+        imagepng($image);
     }
 
     public function imageop4()
