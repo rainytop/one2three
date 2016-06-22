@@ -565,12 +565,21 @@ class BvvController extends Controller
 
     public function imageop($url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png')
     {
-
-        if (empty($url)) {
-            $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
-            //$url= 'http://wx.qlogo.cn/mmopen/znzHslBzEFd6G4ZBicmUmIvl5CXqqgK4qTcNfL6ialSicOf2G8OCPic922MN3rbloala7qYibdgAsaRworfByrwl0iaTYgKI7dhq6U/0';
-            //$url= PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
+        $url= strtolower($url);
+        switch ($url){
+            case 'jpg':
+                $url= 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
+                break;
+            case 'bmp':
+                $url= 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
+                break;
+            case 'un':
+                $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
+                break;
         }
+
+        $imageType= ImageHelper::getImageType($url);
+        dump($imageType);
 
         //$url = iconv("UTF-8", "gb2312", $url);
         $imagemegered = ImageHelper::loadImage($url); //imagecreatefromjpeg($url);
