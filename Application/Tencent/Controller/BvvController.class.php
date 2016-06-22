@@ -582,12 +582,14 @@ class BvvController extends Controller
         }
 
         $imageType = ImageHelper::getImageType($url);
-        dump($imageType);
+        //dump($imageType);
 
         //$url = iconv("UTF-8", "gb2312", $url);
         $imagemegered = ImageHelper::loadImage($url); //imagecreatefromjpeg($url);
 
-        dump($imagemegered);
+        //dump($imagemegered);
+
+        ImageHelper::display($imagemegered,$imageType);
 
 //        ob_clean();
 //        header('Content-Type:image/jpeg');
