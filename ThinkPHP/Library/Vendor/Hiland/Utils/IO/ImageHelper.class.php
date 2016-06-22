@@ -435,13 +435,14 @@ class ImageHelper
         return $savingImageRelativePhysicalPathFullName;
     }
 
-    public static function imageCreateFromBMP( $filename ){
+    public static function imageCreateFromBMP( $filename ) {
         if ( !$f1 = fopen( $filename, "rb" ) )
             return FALSE;
 
         $FILE = unpack( "vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread( $f1, 14 ) );
         if ( $FILE['file_type'] != 19778 )
             return FALSE;
+
         $BMP = unpack( 'Vheader_size/Vwidth/Vheight/vplanes/vbits_per_pixel' . '/Vcompression/Vsize_bitmap/Vhoriz_resolution' . '/Vvert_resolution/Vcolors_used/Vcolors_important', fread( $f1, 40 ) );
         $BMP['colors'] = pow( 2, $BMP['bits_per_pixel'] );
         if ( $BMP['size_bitmap'] == 0 )
@@ -453,12 +454,16 @@ class ImageHelper
         $BMP['decal'] = 4 - (4 * $BMP['decal']);
         if ( $BMP['decal'] == 4 )
             $BMP['decal'] = 0;
+
         $PALETTE = array();
-        if ( $BMP['colors'] < 16777216 ){
-            $PALETTE = unpack( 'V' . $BMP['colors'], fread( $f1, $BMP['colors'] * 4 ) );
+        if ($BMP['colors'] < 16777216 && $BMP['colors'] != 65536)
+        {
+            $PALETTE = unpack('V'.$BMP['colors'], fread($f1,$BMP['colors']*4));
         }
+
         $IMG = fread( $f1, $BMP['size_bitmap'] );
         $VIDE = chr( 0 );
+
         $res = imagecreatetruecolor( $BMP['width'], $BMP['height'] );
         $P = 0;
         $Y = $BMP['height'] - 1;
@@ -475,22 +480,25 @@ class ImageHelper
                         $color = imagecolorallocate( $res, $R, $G, $B );
                     $COLOR[0] = $R*256*256+$G*256+$B;
                     $COLOR[1] = $color;
-                }elseif ( $BMP['bits_per_pixel'] == 24 )
+                } elseif ( $BMP['bits_per_pixel'] == 24 ) {
                     $COLOR = unpack( "V", substr( $IMG, $P, 3 ) . $VIDE );
-                elseif ( $BMP['bits_per_pixel'] == 16 ){
-                    $COLOR = unpack( "n", substr( $IMG, $P, 2 ) );
-                    $COLOR[1] = $PALETTE[$COLOR[1] + 1];
-                }elseif ( $BMP['bits_per_pixel'] == 8 ){
+                } elseif ( $BMP['bits_per_pixel'] == 16 ){
+                    $COLOR = unpack("v",substr($IMG,$P,2));
+                    $blue  = (($COLOR[1] & 0x001f) << 3) + 7;
+                    $green = (($COLOR[1] & 0x03e0) >> 2) + 7;
+                    $red   = (($COLOR[1] & 0xfc00) >> 7) + 7;
+                    $COLOR[1] = $red * 65536 + $green * 256 + $blue;
+                } elseif ( $BMP['bits_per_pixel'] == 8 ){
                     $COLOR = unpack( "n", $VIDE . substr( $IMG, $P, 1 ) );
                     $COLOR[1] = $PALETTE[$COLOR[1] + 1];
-                }elseif ( $BMP['bits_per_pixel'] == 4 ){
+                } elseif ( $BMP['bits_per_pixel'] == 4 ){
                     $COLOR = unpack( "n", $VIDE . substr( $IMG, floor( $P ), 1 ) );
                     if ( ($P * 2) % 2 == 0 )
                         $COLOR[1] = ($COLOR[1] >> 4);
                     else
                         $COLOR[1] = ($COLOR[1] & 0x0F);
                     $COLOR[1] = $PALETTE[$COLOR[1] + 1];
-                }elseif ( $BMP['bits_per_pixel'] == 1 ){
+                } elseif ( $BMP['bits_per_pixel'] == 1 ){
                     $COLOR = unpack( "n", $VIDE . substr( $IMG, floor( $P ), 1 ) );
                     if ( ($P * 8) % 8 == 0 )
                         $COLOR[1] = $COLOR[1] >> 7;
@@ -519,6 +527,7 @@ class ImageHelper
             $P += $BMP['decal'];
         }
         fclose( $f1 );
+
         return $res;
     }
 
