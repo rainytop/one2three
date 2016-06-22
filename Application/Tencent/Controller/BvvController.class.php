@@ -572,7 +572,7 @@ class BvvController extends Controller
             //$url= PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
         }
 
-        $url = iconv("UTF-8", "gb2312", $url);
+        //$url = iconv("UTF-8", "gb2312", $url);
         $imagemegered = imagecreatefromjpeg($url);
 
         header('Content-Type: image/jpeg');
