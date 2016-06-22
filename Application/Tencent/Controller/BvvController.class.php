@@ -608,6 +608,7 @@ class BvvController extends Controller
 //
 //        $image = @ImageCreateFromString($srcData);
 
+        ini_set('memory_limit', '256M');
         $image= ImageHelper::imageCreateFromBMP($url);
 
         ob_clean();
