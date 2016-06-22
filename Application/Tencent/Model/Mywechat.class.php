@@ -3,6 +3,7 @@ namespace Tencent\Model;
 
 use Common\Model\UserinfoModel;
 use Common\Model\UserrolesModel;
+use Hiland\Common\CommonHelper;
 use Vendor\Hiland\Biz\Tencent\NewsResponseItem;
 use Vendor\Hiland\Biz\Tencent\Wechat;
 use Vendor\Hiland\Biz\Tencent\WechatHelper;
@@ -204,6 +205,9 @@ class Mywechat extends Wechat
     protected function onText()
     {
         $contentReceived = $this->getRequest('content');
+
+        CommonHelper::log('receive text',$contentReceived);
+
         switch ($contentReceived) {
             case 'cs-tx':
                 $redirecturl = 'http://' . WebHelper::getHostName() . C('WEIXIN_OAUTH2_REDIRECTPAGE');
