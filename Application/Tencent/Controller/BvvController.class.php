@@ -563,12 +563,14 @@ class BvvController extends Controller
         imagedestroy($imagemegered);
     }
 
-    public function imageop()
+    public function imageop($url = 'http://www.lupaworld.com/data/attachment/portal/201407/30/104433y8oso8kkp0o6kcf8.jpg')
     {
         ob_clean();
-        $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
-        //$url= 'http://wx.qlogo.cn/mmopen/znzHslBzEFd6G4ZBicmUmIvl5CXqqgK4qTcNfL6ialSicOf2G8OCPic922MN3rbloala7qYibdgAsaRworfByrwl0iaTYgKI7dhq6U/0';
-        //$url= PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
+        if (empty($url)) {
+            $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
+            //$url= 'http://wx.qlogo.cn/mmopen/znzHslBzEFd6G4ZBicmUmIvl5CXqqgK4qTcNfL6ialSicOf2G8OCPic922MN3rbloala7qYibdgAsaRworfByrwl0iaTYgKI7dhq6U/0';
+            //$url= PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
+        }
 
         $url = iconv("UTF-8", "gb2312", $url);
         $imagemegered = imagecreatefromjpeg($url);
@@ -620,18 +622,20 @@ class BvvController extends Controller
 //
 //        $result = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
 
-        $image= ImageHelper::loadImage('http://n.sinaimg.cn/news/crawl/20160617/Rgv4-fxtfrrc3774857.jpg');
+        $image = ImageHelper::loadImage('http://n.sinaimg.cn/news/crawl/20160617/Rgv4-fxtfrrc3774857.jpg');
         $result = ImageHelper::saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName);
         dump($result);
     }
 
-    public function getaccesstokenop(){
-        $result= WechatHelper::getAccessToken('','',false);
+    public function getaccesstokenop()
+    {
+        $result = WechatHelper::getAccessToken('', '', false);
         dump($result);
     }
 
-    public function userinfoop(){
-        $subscribeuserinfo= UserinfoModel::getByKey(100002);
+    public function userinfoop()
+    {
+        $subscribeuserinfo = UserinfoModel::getByKey(100002);
         //dump($subscribeuserinfo);
 
         //$userData['weixinopenid']
@@ -645,19 +649,22 @@ class BvvController extends Controller
         $userData['headurl'] = $subscribeuserinfo['headurl'];
         $userData['jointime'] = time();
 
-        $result= UserinfoModel::interact($userData);
+        $result = UserinfoModel::interact($userData);
 
-        if($result){
+        if ($result) {
             dump('ok');
-        }else{
+        } else {
             dump('bad');
         }
     }
 
-    public function  getuserinfoop($openid='oOjPas1SKwihAMngxQxCqmdYGiU4'){
-        $result= WechatHelper::getUserInfo($openid);
+    public function getuserinfoop($openid = 'oOjPas1SKwihAMngxQxCqmdYGiU4')
+    {
+        $result = WechatHelper::getUserInfo($openid);
         dump($result);
     }
+
+
 }
 
 ?>
