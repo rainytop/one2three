@@ -300,7 +300,7 @@ class WechatHelper
 //
 //        curl_close($ch);
 
-        $info = NetHelper::Post($MENU_URL, $menuJson);
+        $info = NetHelper::request($MENU_URL, $menuJson);
         $result = json_decode($info, true);
         $result = $result["errcode"];
         // return $result;
