@@ -64,10 +64,11 @@ class BizHelper
 
         $recommenduseravatar = $recommendUser['headurl'];
 
-        return $qrcodepicurl;
+
 
         // 2、加载背景图片
         $qrcodebgurl = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_BGPIC');
+        return $qrcodebgurl;
 
         // 3、将推广二维码、用户头像、背景图片进行合并
         $imagebg = imagecreatefromjpeg($qrcodebgurl);
