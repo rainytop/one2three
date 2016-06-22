@@ -681,6 +681,14 @@ class BvvController extends Controller
         dump($result);
     }
 
+    public function generateqrcodeop($userID=100001){
+        $userMate= new ModelMate('userinfo');
+        $userData= $userMate->get($userID);
+
+        $result= BizHelper::generateAndSaveQRCode($userData,true);
+        dump($result);
+    }
+
     public function getaccesstokenop()
     {
         $result = WechatHelper::getAccessToken('', '', false);

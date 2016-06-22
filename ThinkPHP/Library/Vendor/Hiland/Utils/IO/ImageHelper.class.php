@@ -315,9 +315,9 @@ class ImageHelper
      *
      * @param resource $image
      * @param string $imageType
-     * @param int $imageDisplayQuality
+     * @param int $imageDisplayQuality 图片质量，jpg格式适用。取值范围0-100，默认为100
      */
-    public static function display($image, $imageType = 'jpg', $imageDisplayQuality = 80)
+    public static function display($image, $imageType = 'jpg', $imageDisplayQuality = 100)
     {
         $functionName = self::getImageOutputFunction($imageType);
 
