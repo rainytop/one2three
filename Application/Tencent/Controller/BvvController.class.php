@@ -565,7 +565,7 @@ class BvvController extends Controller
 
     public function imageop($url = 'http://www.lupaworld.com/data/attachment/portal/201407/30/104433y8oso8kkp0o6kcf8.jpg')
     {
-        ob_clean();
+
         if (empty($url)) {
             $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
             //$url= 'http://wx.qlogo.cn/mmopen/znzHslBzEFd6G4ZBicmUmIvl5CXqqgK4qTcNfL6ialSicOf2G8OCPic922MN3rbloala7qYibdgAsaRworfByrwl0iaTYgKI7dhq6U/0';
@@ -576,6 +576,7 @@ class BvvController extends Controller
         $imagemegered = imagecreatefromjpeg($url);
 
         header('Content-Type: image/jpeg');
+        ob_clean();
         // ???
         imagejpeg($imagemegered);
         // ????
