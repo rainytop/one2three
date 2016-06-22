@@ -155,7 +155,7 @@ class BizHelper
         } else {
             $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
             $fileFullName= str_replace('/','\\',$fileFullName);
-            return $fileFullName;
+            //return $fileFullName;
             $recommendpicurl= ImageHelper::saveImageResource($imagemegered,$fileFullName);
 //            $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
 //            //return $fileFullName;
