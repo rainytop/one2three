@@ -154,7 +154,7 @@ class BizHelper
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
             $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
-            //return $fileFullName;
+            return $fileFullName;
             $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
         }
 
