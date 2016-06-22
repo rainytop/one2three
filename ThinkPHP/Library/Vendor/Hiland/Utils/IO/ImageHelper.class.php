@@ -138,8 +138,9 @@ class ImageHelper
             case 'jpg':
                 $image = imagecreatefromjpeg($imageFileName);
                 break;
-//            case 'bmp':
-//                $image= imagecreatefrom
+            case 'bmp':
+                $image = self::imageCreateFromBMP($imageFileName);
+                break;
             default:
                 // file_get_contents函数要求php版本>4.3.0
                 $srcData = '';
