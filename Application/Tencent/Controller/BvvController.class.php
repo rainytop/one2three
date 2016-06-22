@@ -563,10 +563,11 @@ class BvvController extends Controller
         imagedestroy($imagemegered);
     }
 
-    public function imageop($url = 'png')
+    public function imageop($info = 'png')
     {
-        $url = strtolower($url);
-        switch ($url) {
+        $url = '';
+        $info = strtolower($info);
+        switch ($info) {
             case 'png':
                 $url = 'http://image27.360doc.com/DownloadImg/2011/04/2015/11077777_5.png';
                 break;
@@ -585,11 +586,13 @@ class BvvController extends Controller
         //dump($imageType);
 
         //$url = iconv("UTF-8", "gb2312", $url);
-        $imagemegered = ImageHelper::loadImage($url); //imagecreatefromjpeg($url);
+
+        $imagemegered = ImageHelper::loadImage($url, $info); //imagecreatefromjpeg($url);
 
         //dump($imagemegered);
 
-        ImageHelper::display($imagemegered,$imageType);
+        ImageHelper::display($imagemegered, $imageType);
+        imagedestroy($imagemegered);
 
 //        ob_clean();
 //        header('Content-Type:image/jpeg');
@@ -611,7 +614,7 @@ class BvvController extends Controller
 //        $image = @ImageCreateFromString($srcData);
 
         ini_set('memory_limit', '256M');
-        $image= ImageHelper::imageCreateFromBMP($url);
+        $image = ImageHelper::imageCreateFromBMP($url);
 
         ob_clean();
         header('Content-Type:image/jpeg');
