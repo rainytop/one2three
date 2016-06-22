@@ -73,13 +73,11 @@ class BizHelper
         $imagebg = imagecreatefromjpeg($qrcodebgurl);
         $imagemegered = imagecreatetruecolor(imagesx($imagebg), imagesy($imagebg));
         imagecopy($imagemegered, $imagebg, 0, 0, 0, 0, imagesx($imagebg), imagesy($imagebg));
-        return $recommenduseravatar;
 
         if (empty($recommenduseravatar)) {
             $recommenduseravatar = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
             $recommenduseravatar= str_replace('/','\\',$recommenduseravatar);
         }
-        return $recommenduseravatar;
 
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
@@ -104,6 +102,8 @@ class BizHelper
             default:
                 break;
         }
+
+        return $recommenduseravatar;
 
         // 4、添加文字
         $textfont = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_TEXTFONT');
