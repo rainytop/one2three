@@ -57,6 +57,8 @@ class BizHelper
             }
         }
 
+        return $qrcodepicurl;
+
         $recommendusername = $recommendUser['displayname'];
         if (empty($recommendusername)) {
             $recommendusername = '平台特约会员';
