@@ -69,7 +69,7 @@ class BizHelper
         // 2、加载背景图片
         $qrcodebgurl = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_BGPIC');
         $qrcodebgurl= str_replace('/','\\',$qrcodebgurl);
-        return $qrcodebgurl;
+        //return $qrcodebgurl;
 
         // 3、将推广二维码、用户头像、背景图片进行合并
         $imagebg = imagecreatefromjpeg($qrcodebgurl);
@@ -78,11 +78,10 @@ class BizHelper
 
         if (empty($recommenduseravatar)) {
             $recommenduseravatar = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
+            $recommenduseravatar= str_replace('/','\\',$recommenduseravatar);
         }
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
-
-
 
         switch ($bgType) {
             case 'xfbbd':
@@ -107,6 +106,7 @@ class BizHelper
 
         // 4、添加文字
         $textfont = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_TEXTFONT');
+        $textfont= str_replace('/','\\',$textfont);
 
         //imagefttext($imagemegered, 16, 0, 30, 140, $textcolor, $textfont, '邀请好友共同享优惠！');
 
@@ -152,6 +152,7 @@ class BizHelper
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
             $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
+            return $fileFullName;
             $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
         }
 
