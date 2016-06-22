@@ -638,7 +638,7 @@ class BvvController extends Controller
         $userData['weixinname'] = $subscribeuserinfo['weixinname'];
         $userData['displayname'] = $subscribeuserinfo['displayname'];
         $userData['usersex'] = $subscribeuserinfo['usersex'];
-        $userData['weixinopenid'] = $subscribeuserinfo['weixinopenid'];
+        $userData['weixinopenid'] = 'oOjPas1SKwihAMngxQxCqmdYGiU4';
         $userData['userprovince'] = $subscribeuserinfo['userprovince'];
         $userData['usercity'] = $subscribeuserinfo['usercity'];
         $userData['usercountry'] = $subscribeuserinfo['usercountry'];
