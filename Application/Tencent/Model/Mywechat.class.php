@@ -62,9 +62,6 @@ class Mywechat extends Wechat
         $userData['jointime'] = time();
 
         $userID = UserinfoModel::interact($userData);
-//        if(!$userID){
-//            $this->responseText('更新用户出错了');
-//        }
 
         // 2、展示告知用户已经成为会员，及其推荐人信息
         if ($recommendUserID == 0) {
@@ -165,6 +162,7 @@ class Mywechat extends Wechat
                     UserinfoModel::interact($userinfo);
                 }
 
+                $this->responseText($tempphysicalpath);
                 // 3、上传保存的图片到微信服务器，得到保存文件的mediaid
                 $mediaid = WechatHelper::uploadMedia($tempphysicalpath); //根据用户生成具体的推广二维码
 
