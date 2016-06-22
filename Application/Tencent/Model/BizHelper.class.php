@@ -153,9 +153,13 @@ class BizHelper
             $domainname = C('WEIXIN_SAE_DOMAINNAME');
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
-            $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
+            $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
+            $fileFullName= str_replace('/','\\',$fileFullName);
             return $fileFullName;
-            $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
+            $recommendpicurl= ImageHelper::saveImageResource($imagemegered,$fileFullName);
+//            $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
+//            //return $fileFullName;
+//            $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
         }
 
         $recommendpictemppath = '';
@@ -163,9 +167,9 @@ class BizHelper
             if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
                 $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
             }else{
-                $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
-                $fileFullName= str_replace('/','\\',$fileFullName);
-                $recommendpictemppath= ImageHelper::saveImageResource($imagemegered,$fileFullName);
+//                $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
+//                $fileFullName= str_replace('/','\\',$fileFullName);
+//                $recommendpictemppath= ImageHelper::saveImageResource($imagemegered,$fileFullName);
             }
         }
 
