@@ -164,7 +164,7 @@ class WechatHelper
         }
 
         $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$accessToken&openid=$openID&lang=zh_CN";
-        $output = NetHelper::Get($url);
+        $output = NetHelper::request($url);
         $jsoninfo = json_decode($output);
         return $jsoninfo;
     }
