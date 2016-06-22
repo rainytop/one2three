@@ -23,8 +23,8 @@ class IndexController extends Controller
      */
     public function createweixinmenu()
     {
-        $readmeUrl = 'http://' . WebHelper::getHostName() . '/index.php?s=/home/article/detail/id/1.html';
-        $marketingUrl = 'http://' . WebHelper::getHostName() . '/index.php?s=/home/article/detail/id/3.html';
+        $readmeUrl = 'http://' . WebHelper::getHostName() . '/ott/index.php?s=/home/article/detail/id/1.html';
+        $marketingUrl = 'http://' . WebHelper::getHostName() . '/ott/index.php?s=/home/article/detail/id/3.html';
         $menujson = '
             {
                  "button":[
