@@ -256,36 +256,46 @@ class WechatHelper
 
         // $header[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
 
-        $ch = curl_init();
+//        $ch = curl_init();
+//
+//        curl_setopt($ch, CURLOPT_URL, $MENU_URL);
+//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+//        // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+//        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+//        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, $menuJson);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//
+//        $info = curl_exec($ch);
+//        // return $info;
+//        if (curl_errno($ch)) {
+//            $result = false;
+//        } else {
+//            $result = json_decode($info, true);
+//            $result = $result["errcode"];
+//            // return $result;
+//            if ($result == 0) {
+//                $result = true;
+//            } else {
+//                $result = false;
+//            }
+//        }
+//
+//        curl_close($ch);
 
-        curl_setopt($ch, CURLOPT_URL, $MENU_URL);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 5.01; Windows NT 5.0)');
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $menuJson);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $info = curl_exec($ch);
-        // return $info;
-
-        if (curl_errno($ch)) {
-            $result = false;
+        $info = NetHelper::Post($MENU_URL, $menuJson);
+        $result = json_decode($info, true);
+        $result = $result["errcode"];
+        // return $result;
+        if ($result == 0) {
+            $result = true;
         } else {
-            $result = json_decode($info, true);
-            $result = $result["errcode"];
-            // return $result;
-            if ($result == 0) {
-                $result = true;
-            } else {
-                $result = false;
-            }
+            $result = false;
         }
 
-        curl_close($ch);
 
         return $result;
     }
