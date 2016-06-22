@@ -632,17 +632,25 @@ class BvvController extends Controller
 
     public function userinfoop(){
         $subscribeuserinfo= UserinfoModel::getByKey(100002);
-        dump($subscribeuserinfo);
+        //dump($subscribeuserinfo);
 
-//        $userData['weixinname'] = $subscribeuserinfo->nickname;
-//        $userData['displayname'] = $subscribeuserinfo->nickname;
-//        $userData['usersex'] = $subscribeuserinfo->sex;
-//        $userData['weixinopenid'] = $subscribeuserinfo->openid;
-//        $userData['userprovince'] = $subscribeuserinfo->province;
-//        $userData['usercity'] = $subscribeuserinfo->city;
-//        $userData['usercountry'] = $subscribeuserinfo->country;
-//        $userData['headurl'] = $subscribeuserinfo->headimgurl;
-//        $userData['jointime'] = time();
+        $userData['weixinname'] = $subscribeuserinfo['nickname'];
+        $userData['displayname'] = $subscribeuserinfo['nickname'];
+        $userData['usersex'] = $subscribeuserinfo['sex'];
+        $userData['weixinopenid'] = $subscribeuserinfo['openid'];
+        $userData['userprovince'] = $subscribeuserinfo['province'];
+        $userData['usercity'] = $subscribeuserinfo['city'];
+        $userData['usercountry'] = $subscribeuserinfo['country'];
+        $userData['headurl'] = $subscribeuserinfo['headimgurl'];
+        $userData['jointime'] = time();
+
+        $result= UserinfoModel::interact($userData);
+
+        if($result){
+            dump('ok');
+        }else{
+            dump('bad');
+        }
     }
 }
 
