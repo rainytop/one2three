@@ -577,7 +577,7 @@ class BvvController extends Controller
                 $url = 'http://image2.958shop.com/p/2011/04/02/100430818717860.bmp';
                 break;
             case 'un':
-                $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
+                $url = 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLAecbK9Pz0ulNgnEhAayibmD0oqacxa3NicEhkwwev6BlOLRboBaj6GGdlxSxGL6TjJN5u8xrMruBXQ/0';
                 break;
         }
 
