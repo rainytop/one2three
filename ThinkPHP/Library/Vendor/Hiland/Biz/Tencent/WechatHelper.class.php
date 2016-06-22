@@ -254,8 +254,6 @@ class WechatHelper
         $result = false;
         $MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" . $accessToken;
 
-        // $header[] = "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7";
-
 //        $ch = curl_init();
 //
 //        curl_setopt($ch, CURLOPT_URL, $MENU_URL);

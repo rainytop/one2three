@@ -9,6 +9,7 @@ use Tencent\Model\BizHelper;
 use Tencent\Model\FinanceHelper;
 use Think\Controller;
 use Think\Model;
+use Vendor\Hiland\Biz\Tencent\WechatHelper;
 use Vendor\Hiland\Biz\UrlService\ShortenUrl;
 use Vendor\Hiland\Utils\Data\ArrayHelper;
 use Vendor\Hiland\Utils\Data\CalendarHelper;
@@ -621,6 +622,11 @@ class BvvController extends Controller
 
         $image= ImageHelper::loadImage('http://n.sinaimg.cn/news/crawl/20160617/Rgv4-fxtfrrc3774857.jpg');
         $result = ImageHelper::saveImageResource($image, $physicalRootPath, $savingImageRelativePhysicalPathFullName);
+        dump($result);
+    }
+
+    public function getaccesstokenop(){
+        $result= WechatHelper::getAccessToken('','',false);
         dump($result);
     }
 }
