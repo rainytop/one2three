@@ -57,8 +57,6 @@ class BizHelper
             }
         }
 
-        return $qrcodepicurl;
-
         $recommendusername = $recommendUser['displayname'];
         if (empty($recommendusername)) {
             $recommendusername = '平台特约会员';
@@ -79,6 +77,8 @@ class BizHelper
         }
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
         $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
+
+        return $qrcodepicurl;
 
         switch ($bgType) {
             case 'xfbbd':
