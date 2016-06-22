@@ -598,6 +598,18 @@ class BvvController extends Controller
 //        imagedestroy($imagemegered);
     }
 
+    public function imageop3(){
+        $url = 'http://wx.qlogo.cn/mmopen/Xewa2JUmZ1rEUwEGkiacTianbWOZJ9g5TIgwQ5MlPUFVIaMFWGWGxMpm3xHlic3J5Twzq5Lm1c1Rz1VMpn7oWjOZ7E7UzqIAB1v/0';
+        $srcData = '';
+        if (function_exists("file_get_contents")) {
+            $srcData = file_get_contents($url);
+        }
+
+        $image = @ImageCreateFromString($srcData);
+
+        imagepng($image);
+    }
+
     public function datehelperop()
     {
         dump(DateHelper::getTimestamp('2016-5-25'));
