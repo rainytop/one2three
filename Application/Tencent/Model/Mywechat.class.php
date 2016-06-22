@@ -17,11 +17,11 @@ class Mywechat extends Wechat
     {
         parent::__construct($token, $debug);
 
-        // $title = '微信原始数据';
-        // $content = $this->originalRequestData;
-        // $category = C("WEIXIN_LOG_MODES." . C("WEIXIN_LOG_MODE"));
+         $title = '微信原始数据';
+         $content = $this->originalRequestData;
+         $category = C("WEIXIN_LOG_MODES." . C("WEIXIN_LOG_MODE"));
 
-        // CommonHelper::log($title, $content, $category);
+         CommonHelper::log($title, $content, $category);
     }
 
     /**
