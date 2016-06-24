@@ -740,6 +740,9 @@ class BvvController extends Controller
     public function wechatop(){
         $accessToken= WechatHelper::getAccessToken('','',falas);
         dump($accessToken);
+
+        $qrTicket= BizHelper::getQRTicket(100001,'LONG');
+        dump($qrTicket);
     }
 }
 
