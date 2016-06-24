@@ -163,7 +163,7 @@ class Mywechat extends Wechat
                     UserinfoModel::interact($userinfo);
                 }
 
-                $this->responseText($physicalpath);
+                //$this->responseText($physicalpath);
                 // 3、上传保存的图片到微信服务器，得到保存文件的mediaid
                 $mediaid = WechatHelper::uploadMedia($physicalpath); //根据用户生成具体的推广二维码
 
