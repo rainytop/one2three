@@ -80,7 +80,7 @@ class BizHelper
             $recommenduseravatar= str_replace('/','\\',$recommenduseravatar);
         }
 
-        $imageavatar = ImageHelper::loadImage($recommenduseravatar);
+        $imageavatar = ImageHelper::loadImage($recommenduseravatar,'non');
 
         //return $qrcodepicurl;
         $imageqrcode = ImageHelper::loadImage($qrcodepicurl,'non'); //imagecreatefromjpeg($qrcodepicurl);
