@@ -154,8 +154,8 @@ class Mywechat extends Wechat
                 $userinfo = UserinfoModel::getByOpenID($this->getRequestOpenid());
 
                 // 2、生成推广二维码并保持进入sae storage中
-                $patharray = BizHelper::generateAndSaveQRCode($userinfo, true);
-                $this->responseText('本功能修复中，稍后再试。'."(g)$patharray");
+                $patharray = BizHelper::generateAndSaveQRCode($userinfo);
+                //$this->responseText('本功能修复中，稍后再试。'."(g)$patharray");
                 $recommendpicurl = $patharray['weburl'];
                 $physicalpath = $patharray['physicalpath'];
                 if (!empty($userinfo)) {

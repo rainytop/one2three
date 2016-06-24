@@ -694,7 +694,7 @@ class BvvController extends Controller
         $userMate = new ModelMate('userinfo');
         $userData = $userMate->get($userID);
 
-        $result = BizHelper::generateAndSaveQRCode($userData, true);
+        $result = BizHelper::generateAndSaveQRCode($userData);
         dump($result);
     }
 

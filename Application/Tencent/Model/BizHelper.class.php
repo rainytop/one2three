@@ -27,12 +27,10 @@ class BizHelper
      *
      * @param array $recommendUser
      *            推荐人实体数据
-     * @param bool $andsavetempfile
-     *            是否同时生成 有本地绝对物理路径的临时文件
      * @return array 二位数组 第一个元素weburl是sae storage的url,或者是本地图片的web路径（不包括虚拟目录信息）
      *         第二个元素physicalpath是sae的临时物理文件全路径，或本地全物理路径的
      */
-    public static function generateAndSaveQRCode($recommendUser, $andsavetempfile)
+    public static function generateAndSaveQRCode($recommendUser)
     {
         $bgType = null;//背景类型，留出来以后可以支持多种微信背景。
         //$bgType='dblc';//多步流程背景
@@ -68,7 +66,7 @@ class BizHelper
 
         // 2、加载背景图片
         $qrcodebgurl = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_BGPIC');
-        $qrcodebgurl= str_replace('/','\\',$qrcodebgurl);
+        $qrcodebgurl = str_replace('/', '\\', $qrcodebgurl);
 
         // 3、将推广二维码、用户头像、背景图片进行合并
         $imagebg = imagecreatefromjpeg($qrcodebgurl);
@@ -77,13 +75,13 @@ class BizHelper
 
         if (empty($recommenduseravatar)) {
             $recommenduseravatar = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_DEFAULTAVATAR');
-            $recommenduseravatar= str_replace('/','\\',$recommenduseravatar);
+            $recommenduseravatar = str_replace('/', '\\', $recommenduseravatar);
         }
 
-        $imageavatar = ImageHelper::loadImage($recommenduseravatar,'non');
+        $imageavatar = ImageHelper::loadImage($recommenduseravatar, 'non'); //由于服务器限制，此处指定图片扩展名为non，系统将使用curl的方式载入图片
 
         //return $qrcodepicurl;
-        $imageqrcode = ImageHelper::loadImage($qrcodepicurl,'non'); //imagecreatefromjpeg($qrcodepicurl);
+        $imageqrcode = ImageHelper::loadImage($qrcodepicurl, 'non'); //imagecreatefromjpeg($qrcodepicurl);
         dump($imageqrcode);
 
         switch ($bgType) {
@@ -109,7 +107,7 @@ class BizHelper
 
         // 4、添加文字
         $textfont = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_TEXTFONT');
-        $textfont= str_replace('/','\\',$textfont);
+        $textfont = str_replace('/', '\\', $textfont);
 
         switch ($bgType) {
             case 'xfbbd':
@@ -152,20 +150,19 @@ class BizHelper
             $domainname = C('WEIXIN_SAE_DOMAINNAME');
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
-            $recommendpicurl= $uploadPath . $savedimagebasenamewithrelativepath;
+            $recommendpicurl = $uploadPath . $savedimagebasenamewithrelativepath;
             $fileFullName = PHYSICAL_ROOT_PATH . $recommendpicurl;
-            $fileFullName= str_replace('/','\\',$fileFullName);
+            $fileFullName = str_replace('/', '\\', $fileFullName);
             //return $fileFullName;
-            $fileFullName= ImageHelper::save($imagemegered,$fileFullName);
+            $fileFullName = ImageHelper::save($imagemegered, $fileFullName);
         }
 
         $recommendpictemppath = '';
-        if ($andsavetempfile) {
-            if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
-                $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
-            }else{
-                $recommendpictemppath= $fileFullName;
-            }
+
+        if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
+            $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
+        } else {
+            $recommendpictemppath = $fileFullName;
         }
 
         imagedestroy($imageavatar);
