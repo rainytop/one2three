@@ -154,13 +154,14 @@ class WechatHelper
             $accessToken = self::getAccessToken();
         }
 
-        return $accessToken;
+        //return $accessToken;
         $url = "http://api.weixin.qq.com/cgi-bin/material/add_material?access_token=$accessToken&type=image";
         $mediajson = array(
             "media" => "@" . $mediaFileName
         );
 
         $result = NetHelper::request($url, $mediajson);
+        return $result;
         $row = json_decode($result);
         return $row->media_id;
     }
