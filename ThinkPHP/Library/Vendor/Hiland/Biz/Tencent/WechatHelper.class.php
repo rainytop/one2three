@@ -55,9 +55,9 @@ class WechatHelper
         $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $accessToken;
         $result = NetHelper::request($url, $qrrequest);
 
-        return $result;
-        $jsoninfo = json_decode($result);
-        $ticket = $jsoninfo->ticket;
+        //return $result;
+        $jsoninfo = json_decode($result,true);
+        $ticket = $jsoninfo['ticket'];
 
         return $ticket;
     }
