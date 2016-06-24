@@ -48,7 +48,7 @@ class MyWxPayNotify extends WxPayNotify
         $content.= "|outTradeNo:$outTradeNo";
         $content.= "|roleGuid:$roleGuid";
         
-        //CommonHelper::log('weixin pay debug',$content);
+        CommonHelper::log('weixin pay debug',$content);
         
         if($resultCode=='SUCCESS'|| $returnCode=='SUCCESS'){
             //BizHelper::ruDing($roleGuid);
