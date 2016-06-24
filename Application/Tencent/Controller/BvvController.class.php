@@ -754,6 +754,24 @@ class BvvController extends Controller
 
         //$qrTicket= BizHelper::getQRTicket(100001,'LONG');
         //dump($qrTicket);
+
+        $qrUrl= BizHelper::getQRCodeUrl($longkey);
+
+        $opts = array(
+            'http'=>array(
+                'method'=>"GET",
+                'header'=>"User-Agent: Mozilla/5.0\n"
+            )
+        );
+        $context = stream_context_create($opts);
+        $srcData = file_get_contents($qrUrl,false,$context);
+
+        if (empty($srcData)) {
+            die("图片源为空");
+        }
+        $image = @ImageCreateFromString($srcData);
+
+        dump($image);
     }
 
 
