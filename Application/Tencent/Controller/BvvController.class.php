@@ -736,6 +736,12 @@ class BvvController extends Controller
             dump("$modulename NOOOOOOOOOOO");
         }
     }
+
+    public function wechatop(){
+        $accessToken= WechatHelper::getAccessToken('','',falas);
+        dump($accessToken);
+    }
 }
+
 
 ?>
