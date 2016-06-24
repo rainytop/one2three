@@ -85,6 +85,7 @@ class NetHelper
         curl_setopt($curl, CURLOPT_URL, $url);
 
         if (!empty($data)) {
+            curl_setopt($curl, CURLOPT_SAFE_UPLOAD, false);
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         }
