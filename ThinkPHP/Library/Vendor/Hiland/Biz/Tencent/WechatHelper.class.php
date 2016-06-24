@@ -154,7 +154,8 @@ class WechatHelper
             $accessToken = self::getAccessToken();
         }
 
-        $url = "http://api.weixin.qq.com/cgi-bin/material/add_material?access_token=" . $accessToken . "&type=image";
+        return $accessToken;
+        $url = "http://api.weixin.qq.com/cgi-bin/material/add_material?access_token=$accessToken&type=image";
         $mediajson = array(
             "media" => "@" . $mediaFileName
         );
