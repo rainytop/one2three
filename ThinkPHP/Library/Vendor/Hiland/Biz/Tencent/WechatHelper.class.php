@@ -615,7 +615,7 @@ class WechatHelper
         }
         $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
 
-        $res = json_decode(NetHelper::Get($url));
+        $res = json_decode(NetHelper::request($url));
         $ticket = $res->ticket;
 
         return $ticket;
