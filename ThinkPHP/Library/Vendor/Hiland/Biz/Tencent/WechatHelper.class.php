@@ -514,7 +514,7 @@ class WechatHelper
     public static function getOAuth2UserInfo($openID, $oauth2AccessToken)
     {
         $url = "https://api.weixin.qq.com/sns/userinfo?access_token=$oauth2AccessToken&openid=$openID";
-        $output = NetHelper::Get($url);
+        $output = NetHelper::request($url);
         $jsoninfo = json_decode($output);
         return $jsoninfo;
     }
@@ -654,7 +654,7 @@ class WechatHelper
         }
 
         $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=$accessToken";
-        $result = NetHelper::Post($url, $data);
+        $result = NetHelper::request($url, $data);
 
         $result = json_decode($result);
         $errorCode = $result->errcode;
