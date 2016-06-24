@@ -34,7 +34,7 @@ class WechatHelper
                 "action_name": "QR_LIMIT_SCENE",
                 "action_info": {
                     "scene": {
-                        "scene_str": "' . $key . '"
+                        "scene_id": ' . $key . '
                     }
                 }
             }';
@@ -662,6 +662,31 @@ class WechatHelper
             return true;
         } else {
             return '错误代码:[' . $errorCode . '].错误信息为:' . $errorMessage;
+        }
+    }
+
+    /**
+     * 将长地址转换为短地址
+     * @param $longUrl
+     * @param string $accessToken
+     * @return bool|string 成功返回转换后的短地址，失败返回false
+     * @throws Common\WechatException
+     */
+    public static function shortenUrl($longUrl, $accessToken = '')
+    {
+        if (empty($accessToken)) {
+            $accessToken = self::getAccessToken();
+        }
+
+        $url = "https://api.weixin.qq.com/cgi-bin/shorturl?access_token=$accessToken";
+        $data = "{\"action\":\"long2short\",\"long_url\":\"$longUrl\"}";
+
+        $out = NetHelper::request($url, $data);
+        $result = json_decode($out, true);
+        if ($result['errcode'] == 0) {
+            return $result['short_url'];
+        } else {
+            return false;
         }
     }
 }

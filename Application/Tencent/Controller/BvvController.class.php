@@ -503,6 +503,11 @@ class BvvController extends Controller
         dump($result);
     }
 
+    public function shortenurlop2($url='http://zhidao.baidu.com/link?url=-GXvXoFda2J5wC2_8Dmp8WHMy6qtdUMPFoOLxtM7Fz_-ZHUd0BwtnoCm7mIN7CCRvVR6GUsl8IBjVcLCAJHyGa'){
+        $shortUrl= WechatHelper::shortenUrl($url);
+        dump($shortUrl);
+    }
+
     public function getlongurlop($url = 'http://hilandwechat.sinaapp.com/_sp/4')
     {
         $result = ShortenUrl::getLongUrl($url);
@@ -750,6 +755,8 @@ class BvvController extends Controller
         //$qrTicket= BizHelper::getQRTicket(100001,'LONG');
         //dump($qrTicket);
     }
+
+
 }
 
 
