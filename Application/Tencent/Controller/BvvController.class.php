@@ -25,6 +25,7 @@ use Vendor\Hiland\Utils\DataModel\ModelMate;
 use Vendor\Hiland\Utils\IO\File\FileUtil;
 use Vendor\Hiland\Utils\IO\ImageHelper;
 use Vendor\Hiland\Utils\Web\EnvironmentHelper;
+use Vendor\Hiland\Utils\Web\NetHelper;
 use Vendor\Hiland\Utils\Web\PageHelper;
 use Vendor\Hiland\Utils\Web\SaeHelper;
 use Vendor\Hiland\Utils\Web\WebHelper;
@@ -503,8 +504,9 @@ class BvvController extends Controller
         dump($result);
     }
 
-    public function shortenurlop2($url='http://zhidao.baidu.com/link?url=-GXvXoFda2J5wC2_8Dmp8WHMy6qtdUMPFoOLxtM7Fz_-ZHUd0BwtnoCm7mIN7CCRvVR6GUsl8IBjVcLCAJHyGa'){
-        $shortUrl= WechatHelper::shortenUrl($url);
+    public function shortenurlop2($url = 'http://zhidao.baidu.com/link?url=-GXvXoFda2J5wC2_8Dmp8WHMy6qtdUMPFoOLxtM7Fz_-ZHUd0BwtnoCm7mIN7CCRvVR6GUsl8IBjVcLCAJHyGa')
+    {
+        $shortUrl = WechatHelper::shortenUrl($url);
         dump($shortUrl);
     }
 
@@ -681,17 +683,18 @@ class BvvController extends Controller
 //
 //        $result = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
 
-        $filePhysicalFullName= $physicalRootPath.'\\'.$savingImageRelativePhysicalPathFullName;
+        $filePhysicalFullName = $physicalRootPath . '\\' . $savingImageRelativePhysicalPathFullName;
         $image = ImageHelper::loadImage('http://n.sinaimg.cn/news/crawl/20160617/Rgv4-fxtfrrc3774857.jpg');
         $result = ImageHelper::save($image, $filePhysicalFullName);
         dump($result);
     }
 
-    public function generateqrcodeop($userID=100001){
-        $userMate= new ModelMate('userinfo');
-        $userData= $userMate->get($userID);
+    public function generateqrcodeop($userID = 100001)
+    {
+        $userMate = new ModelMate('userinfo');
+        $userData = $userMate->get($userID);
 
-        $result= BizHelper::generateAndSaveQRCode($userData,true);
+        $result = BizHelper::generateAndSaveQRCode($userData, true);
         dump($result);
     }
 
@@ -742,29 +745,34 @@ class BvvController extends Controller
         }
     }
 
-    public function wechatop($longkey=1000){
-        $accessToken= WechatHelper::getAccessToken('','',falas);
+    public function wechatop($longkey = 1000)
+    {
+        $accessToken = WechatHelper::getAccessToken('', '', falas);
         dump($accessToken);
 
-        $qrTicket= WechatHelper::getQRTicket($longkey,$accessToken,'QR_LIMIT_SCENE');
+        $qrTicket = WechatHelper::getQRTicket($longkey, $accessToken, 'QR_LIMIT_SCENE');
         dump($qrTicket);
 
-        $qrTicket= WechatHelper::getQRTicket(100001,$accessToken,'QR_SCENE');
+        $qrTicket = WechatHelper::getQRTicket(100001, $accessToken, 'QR_SCENE');
         dump($qrTicket);
 
         //$qrTicket= BizHelper::getQRTicket(100001,'LONG');
         //dump($qrTicket);
 
-        $qrUrl= BizHelper::getQRCodeUrl($longkey);
+        $qrUrl = BizHelper::getQRCodeUrl($longkey);
+        dump($qrUrl);
 
-        $opts = array(
-            'http'=>array(
-                'method'=>"GET",
-                'header'=>"User-Agent: Mozilla/5.0\n"
-            )
-        );
-        $context = stream_context_create($opts);
-        $srcData = file_get_contents($qrUrl,false,$context);
+//        $opts = array(
+//            'http' => array(
+//                'method' => "GET",
+//                'header' => "User-Agent: Mozilla/5.0\n"
+//            )
+//        );
+//        $context = stream_context_create($opts);
+//        $srcData = file_get_contents($qrUrl, false, $context);
+
+
+        $srcData= NetHelper::Get($qrUrl);
 
         if (empty($srcData)) {
             die("图片源为空");
