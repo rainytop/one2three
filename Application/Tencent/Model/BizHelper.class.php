@@ -83,7 +83,7 @@ class BizHelper
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
 
         //return $qrcodepicurl;
-        $imageqrcode = ImageHelper::loadImage($qrcodepicurl); //imagecreatefromjpeg($qrcodepicurl);
+        $imageqrcode = ImageHelper::loadImage($qrcodepicurl,'non'); //imagecreatefromjpeg($qrcodepicurl);
         dump($imageqrcode);
 
         switch ($bgType) {
