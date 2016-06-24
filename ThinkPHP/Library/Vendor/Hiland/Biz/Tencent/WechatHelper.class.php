@@ -161,7 +161,7 @@ class WechatHelper
         );
 
         $result = NetHelper::request($url, $mediajson);
-        return $result;
+        //return $result;
         $row = json_decode($result);
         return $row->media_id;
     }
