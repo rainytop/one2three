@@ -30,16 +30,17 @@ class WechatHelper
 
         $qrrequest = '';
         if ($effectType == 'QR_LIMIT_SCENE') { // 长效二维码
+            $qrrequest = '{"action_name": "QR_LIMIT_SCENE", "action_info": {"scene": {"scene_id": 123}}}';
+        } else { // 临时二维码
             $qrrequest = '{
-                "action_name": "QR_LIMIT_SCENE",
+                "expire_seconds": ' . $expireSeconds . ',
+                "action_name": "QR_SCENE",
                 "action_info": {
                     "scene": {
-                        "scene_id": ' . $key . '
+                        "scene_id":  ' . $key . '
                     }
                 }
             }';
-        } else { // 临时二维码
-            $qrrequest = '{"action_name": "QR_LIMIT_SCENE", "action_info": {"scene": {"scene_id": 123}}}';
         }
 
         //$qrrequest= http_build_query($qrrequest);
