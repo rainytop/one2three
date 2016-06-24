@@ -3,6 +3,7 @@ namespace Vendor\Hiland\Utils\IO;
 
 use Vendor\Hiland\Utils\Data\StringHelper;
 use Vendor\Hiland\Utils\Web\MimeHelper;
+use Vendor\Hiland\Utils\Web\NetHelper;
 
 /**
  *
@@ -148,17 +149,21 @@ class ImageHelper
                 $image = self::imageCreateFromBMP($imageFileName);
                 break;
             default:
-                // file_get_contents函数要求php版本>4.3.0
                 $srcData = '';
-                if (function_exists("file_get_contents")) {
-                    $srcData = file_get_contents($imageFileName);
-                } else {
-                    $handle = fopen($imageFileName, "r");
-                    while (!feof($handle)) {
-                        $srcData .= fgets($handle, 4096);
-                    }
-                    fclose($handle);
-                }
+
+//                // file_get_contents函数要求php版本>4.3.0
+//                if (function_exists("file_get_contents")) {
+//                    $srcData = file_get_contents($imageFileName);
+//                } else {
+//                    $handle = fopen($imageFileName, "r");
+//                    while (!feof($handle)) {
+//                        $srcData .= fgets($handle, 4096);
+//                    }
+//                    fclose($handle);
+//                }
+
+                $srcData= NetHelper::request($imageFileName);
+
                 if (empty($srcData)) {
                     die("图片源为空");
                 }
