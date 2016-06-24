@@ -1,6 +1,7 @@
 <?php
 namespace Tencent\Controller;
 
+use Hiland\Common\CommonHelper;
 use Tencent\Model\MyWxPayNotify;
 use Tencent\Model\WxJSAPIMate;
 use Think\Controller;
@@ -80,6 +81,7 @@ class PayController extends Controller
 
     public function notify()
     {
+        CommonHelper::log('pay notify gate.');
         $notify = new MyWxPayNotify();
         $notify->Handle(false);
     }
