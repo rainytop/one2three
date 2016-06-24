@@ -111,7 +111,7 @@ class PayInnerController extends Controller
             $messageForFromUser = "您的支付交易失败，请确认本付款信息先前是否已经被确认或拒绝。如果要进行再次付款，可以重新扫描商家二维码。";
         }
         
-        dump($noticeData['noticestatus']);
+        //dump($noticeData['noticestatus']);
 
         $transModel = new Model();
         $transModel->startTrans();
