@@ -29,8 +29,8 @@ class BizHelper
      *            推荐人实体数据
      * @param bool $andsavetempfile
      *            是否同时生成 有本地绝对物理路径的临时文件
-     * @return array 二位数组 第一个元素foreverurl是sae storage的url,
-     *         第二个元素tempphysicalpath是本地绝对物理路径的临时文件全路径
+     * @return array 二位数组 第一个元素weburl是sae storage的url,或者是本地图片的web路径（不包括虚拟目录信息）
+     *         第二个元素physicalpath是sae的临时物理文件全路径，或本地全物理路径的
      */
     public static function generateAndSaveQRCode($recommendUser, $andsavetempfile)
     {
@@ -79,10 +79,9 @@ class BizHelper
         }
 
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
-        //$imageAvatarType= ImageHelper::getImageType($recommenduseravatar);
-        $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
 
-        //return $recommenduseravatar;
+        return $qrcodepicurl;
+        $imageqrcode = imagecreatefromjpeg($qrcodepicurl);
 
         switch ($bgType) {
             case 'xfbbd':
@@ -105,13 +104,9 @@ class BizHelper
                 break;
         }
 
-
-
         // 4、添加文字
         $textfont = PHYSICAL_ROOT_PATH . C('WEIXIN_RECOMMEND_TEXTFONT');
         $textfont= str_replace('/','\\',$textfont);
-
-        //imagefttext($imagemegered, 16, 0, 30, 140, $textcolor, $textfont, '邀请好友共同享优惠！');
 
         switch ($bgType) {
             case 'xfbbd':
@@ -154,16 +149,11 @@ class BizHelper
             $domainname = C('WEIXIN_SAE_DOMAINNAME');
             $recommendpicurl = SaeHelper::saveImageResource($imagemegered, $savedimagebasenamewithrelativepath, $domainname);
         } else {
-            $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
+            $recommendpicurl= $uploadPath . $savedimagebasenamewithrelativepath;
+            $fileFullName = PHYSICAL_ROOT_PATH . $recommendpicurl;
             $fileFullName= str_replace('/','\\',$fileFullName);
             //return $fileFullName;
             $fileFullName= ImageHelper::save($imagemegered,$fileFullName);
-
-            $recommendpicurl= $uploadPath . $savedimagebasenamewithrelativepath;
-
-//            $fileFullName = __ROOT__ . $uploadPath . $savedimagebasenamewithrelativepath;
-//            //return $fileFullName;
-//            $recommendpicurl = ImageHelper::saveImageResource($imagemegered,$fileFullName);
         }
 
         $recommendpictemppath = '';
@@ -171,10 +161,6 @@ class BizHelper
             if (EnvironmentHelper::getDepositoryPlateformName() == 'sae') {
                 $recommendpictemppath = SaeHelper::saveTempImageResource($imagemegered, $savedimagebasename);
             }else{
-//                $fileFullName = PHYSICAL_ROOT_PATH . $uploadPath . $savedimagebasenamewithrelativepath;
-//                $fileFullName= str_replace('/','\\',$fileFullName);
-//                $recommendpictemppath= ImageHelper::saveImageResource($imagemegered,$fileFullName);
-
                 $recommendpictemppath= $fileFullName;
             }
         }
@@ -187,8 +173,8 @@ class BizHelper
         imagedestroy($imagemegered);
 
         return array(
-            'foreverurl' => $recommendpicurl,
-            'tempphysicalpath' => $recommendpictemppath
+            'weburl' => $recommendpicurl,
+            'physicalpath' => $recommendpictemppath
         );
     }
 
