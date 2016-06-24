@@ -39,15 +39,7 @@ class WechatHelper
                 }
             }';
         } else { // 临时二维码
-            $qrrequest = '{
-                "expire_seconds": ' . $expireSeconds . ',
-                "action_name": "QR_SCENE",
-                "action_info": {
-                    "scene": {
-                        "scene_id":  ' . $key . '
-                    }
-                }
-            }';
+            $qrrequest = '{"action_name": "QR_LIMIT_SCENE", "action_info": {"scene": {"scene_id": 123}}}';
         }
 
         //$qrrequest= http_build_query($qrrequest);
@@ -55,7 +47,7 @@ class WechatHelper
         $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $accessToken;
         $result = NetHelper::request($url, $qrrequest);
 
-        $jsoninfo = json_decode($result,true);
+        $jsoninfo = json_decode($result, true);
         $ticket = $jsoninfo['ticket'];
 
         return $ticket;
