@@ -3,6 +3,7 @@ namespace Tencent\Controller;
 
 use Common\Common\ConfigHelper;
 use Common\Model\UserinfoModel;
+use Hiland\Common\CommonHelper;
 use Tencent\Model\BizHelper;
 use Tencent\Model\FinanceHelper;
 use Think\Controller;
@@ -110,7 +111,8 @@ class PayInnerController extends Controller
             $result = false;
             $messageForFromUser = "您的支付交易失败，请确认本付款信息先前是否已经被确认或拒绝。如果要进行再次付款，可以重新扫描商家二维码。";
         }
-        
+
+        CommonHelper::log('付款状态',$noticeData['noticestatus']);
         //dump($noticeData['noticestatus']);
 
         $transModel = new Model();
