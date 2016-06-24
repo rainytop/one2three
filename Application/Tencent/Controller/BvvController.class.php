@@ -741,7 +741,7 @@ class BvvController extends Controller
         $accessToken= WechatHelper::getAccessToken('','',falas);
         dump($accessToken);
 
-        $qrTicket= WechatHelper::getQRTicket(100001,$accessToken,'QR_LIMIT_SCENE');
+        $qrTicket= WechatHelper::getQRTicket(9999,$accessToken,'QR_LIMIT_SCENE');
         dump($qrTicket);
 
         $qrTicket= WechatHelper::getQRTicket(100001,$accessToken,'QR_SCENE');
