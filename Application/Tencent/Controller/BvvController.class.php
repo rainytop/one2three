@@ -772,7 +772,7 @@ class BvvController extends Controller
 //        $srcData = file_get_contents($qrUrl, false, $context);
 
 
-        $srcData= NetHelper::Get($qrUrl);
+        $srcData= NetHelper::request($qrUrl);
 
         if (empty($srcData)) {
             die("图片源为空");
