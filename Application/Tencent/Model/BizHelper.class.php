@@ -57,7 +57,7 @@ class BizHelper
             }
         }
 
-        return $recommenduserid;
+        //return $recommenduserid;
 
         $recommendusername = $recommendUser['displayname'];
         if (empty($recommendusername)) {
