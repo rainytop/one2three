@@ -36,7 +36,7 @@ class WechatConfig
     // 微信公众平台商户的名称
     const MCHNAME = '互动生活馆';
 
-    const NOTIFYURL = 'http://hilandwechat.sinaapp.com/index.php/tencent/pay/notify';
+    const NOTIFYURL = 'http://app.rainytop.com/ott/index.php/tencent/pay/notify';
 
     // =======【证书路径设置】=====================================
     /**
