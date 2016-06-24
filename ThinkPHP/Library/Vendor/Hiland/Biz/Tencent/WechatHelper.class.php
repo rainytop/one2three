@@ -50,6 +50,8 @@ class WechatHelper
             }';
         }
 
+        $qrrequest= http_build_query($qrrequest);
+
         $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $accessToken;
         $result = NetHelper::Post($url, $qrrequest);
         $jsoninfo = json_decode($result);
