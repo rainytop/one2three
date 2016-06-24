@@ -784,8 +784,8 @@ class BvvController extends Controller
 
 
     public function uploadimageop(){
-        //$file= 'E:\\Applications\\one2three\\Uploads\\userqrcode\\07919B62-84B9-85F7-E47E-EF23B317875C.jpg';
-        $file= 'E:\Applications\one2three\Uploads\userqrcode\07919B62-84B9-85F7-E47E-EF23B317875C.jpg';
+        $file= 'E:\\Applications\\one2three\\Uploads\\userqrcode\\07919B62-84B9-85F7-E47E-EF23B317875C.jpg';
+        //$file= 'E:\Applications\one2three\Uploads\userqrcode\07919B62-84B9-85F7-E47E-EF23B317875C.jpg';
         $mediaID= WechatHelper::uploadMedia($file);
         dump($mediaID);
     }
