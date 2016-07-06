@@ -122,7 +122,7 @@ class IndexController extends Controller
         }
     }
 
-    public static function responseQRCode($openID){
+    public function responseQRCode($openID){
         // 1、根据当前用户的openid获取其在本地系统的userinfo
         $userinfo = UserinfoModel::getByOpenID($openID);
         CommonHelper::log('用户二维码',$openID);
