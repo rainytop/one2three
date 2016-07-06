@@ -22,8 +22,10 @@ class BizHelper
 
     private static $queue;
 
+    
+
     /**
-     * 在sae中生成推广二维码
+     * 在生成推广二维码
      *
      * @param array $recommendUser
      *            推荐人实体数据

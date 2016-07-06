@@ -794,6 +794,8 @@ class BvvController extends Controller
     public function launchPayConfirmop($id=59){
         $url= U("Tencent/PayInner/launchPayConfirm","id=$id");
         echo "<a href=$url>付款</a>";
+        
+        
     }
 
 }

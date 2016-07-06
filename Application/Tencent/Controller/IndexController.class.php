@@ -1,6 +1,8 @@
 <?php
 namespace Tencent\Controller;
 
+use Common\Model\UserinfoModel;
+use Tencent\Model\BizHelper;
 use Tencent\Model\Mywechat;
 use Think\Controller;
 use Vendor\Hiland\Biz\Tencent\WechatHelper;
@@ -117,6 +119,27 @@ class IndexController extends Controller
                     break;
             }
         }
+    }
+
+    public static function responseQRCode($openID){
+        // 1、根据当前用户的openid获取其在本地系统的userinfo
+        $userinfo = UserinfoModel::getByOpenID($openID);
+
+        // 2、生成推广二维码并保持
+        $patharray = BizHelper::generateAndSaveQRCode($userinfo);
+        //$this->responseText('本功能修复中，稍后再试。'."(g)$patharray");
+        $recommendpicurl = $patharray['weburl'];
+        $physicalpath = $patharray['physicalpath'];
+        if (!empty($userinfo)) {
+            $userinfo['recommendpicture'] = $recommendpicurl;
+            UserinfoModel::interact($userinfo);
+        }
+
+        // 3、上传保存的图片到微信服务器，得到保存文件的mediaid
+        $mediaid = WechatHelper::uploadMedia($physicalpath); //根据用户生成具体的推广二维码
+
+        // 4、将这个图片信息推送到用户微信中
+        WechatHelper::responseCustomerServiceImage($openID,$mediaid);
     }
 }
 

@@ -647,6 +647,34 @@ class WechatHelper
         return $result;
     }
 
+
+    /**
+     * 发送文本型内容的客服消息
+     *
+     * @param string $toUserOpenID
+     *            目标方微信用户openid
+     * @param string $mediaID
+     *            发送图片的id（此图片需要提前上传到微信服务器，获取的上传后的资源id）
+     * @param string $accessToken
+     *            访问口令
+     * @return bool|string 发送成功返回true，错误的时候则返回错误代码和错误信息拼接的字符串。
+     */
+    public static function responseCustomerServiceImage($toUserOpenID, $mediaID, $accessToken = '')
+    {
+        $data = '{
+                    "touser":"' . $toUserOpenID . '",
+                    "msgtype":"image",
+                    "image":
+                    {
+                         "media_id":"' . $mediaID . '"
+                    }
+                }';
+
+        $result = self::responseCustomerService($data, $accessToken);
+        return $result;
+    }
+
+
     private static function responseCustomerService($data, $accessToken = '')
     {
         if (empty($accessToken)) {
