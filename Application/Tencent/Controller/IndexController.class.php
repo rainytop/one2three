@@ -2,6 +2,7 @@
 namespace Tencent\Controller;
 
 use Common\Model\UserinfoModel;
+use Hiland\Common\CommonHelper;
 use Tencent\Model\BizHelper;
 use Tencent\Model\Mywechat;
 use Think\Controller;
@@ -124,6 +125,7 @@ class IndexController extends Controller
     public static function responseQRCode($openID){
         // 1、根据当前用户的openid获取其在本地系统的userinfo
         $userinfo = UserinfoModel::getByOpenID($openID);
+        CommonHelper::log('用户二维码',$openID);
 
         // 2、生成推广二维码并保持
         $patharray = BizHelper::generateAndSaveQRCode($userinfo);
