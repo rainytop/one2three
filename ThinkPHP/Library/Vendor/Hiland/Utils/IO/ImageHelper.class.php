@@ -24,7 +24,7 @@ class ImageHelper
      *            图片放缩后允许的最多高度
      * @return resource 按比例放缩后的图片
      */
-    public static function resizedImage($sourceimage, $targetmaxwidth, $targetmaxheight)
+    public static function resizeImage($sourceimage, $targetmaxwidth, $targetmaxheight)
     {
         $sourcewidth = imagesx($sourceimage);
         $sourceheight = imagesy($sourceimage);

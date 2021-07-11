@@ -84,22 +84,22 @@ class BizHelper
 
         //return $qrcodepicurl;
         $imageqrcode = ImageHelper::loadImage($qrcodepicurl, 'non'); //imagecreatefromjpeg($qrcodepicurl);
-        dump($imageqrcode);
+        //dump($imageqrcode);
 
         switch ($bgType) {
             case 'xfbbd':
-                $imageavatarnew = ImageHelper::resizedImage($imageavatar, 130, 130);
+                $imageavatarnew = ImageHelper::resizeImage($imageavatar, 130, 130);
                 imagecopy($imagemegered, $imageavatarnew, 15, 22, 0, 0, imagesx($imageavatarnew), imagesy($imageavatarnew));
 
-                $imageqrcodenew = ImageHelper::resizedImage($imageqrcode, 188, 188);
+                $imageqrcodenew = ImageHelper::resizeImage($imageqrcode, 188, 188);
                 $imageqrcodenew = ImageHelper::cropImage($imageqrcodenew, 6, 6, 6, 6);
                 imagecopy($imagemegered, $imageqrcodenew, 64, 692, 0, 0, imagesx($imageqrcodenew), imagesy($imageqrcodenew));
                 break;
             case 'dblc':
-                $imageavatarnew = ImageHelper::resizedImage($imageavatar, 88, 88);
+                $imageavatarnew = ImageHelper::resizeImage($imageavatar, 88, 88);
                 imagecopy($imagemegered, $imageavatarnew, 6, 13, 0, 0, imagesx($imageavatarnew), imagesy($imageavatarnew));
 
-                $imageqrcodenew = ImageHelper::resizedImage($imageqrcode, 100, 100);
+                $imageqrcodenew = ImageHelper::resizeImage($imageqrcode, 100, 100);
                 $imageqrcodenew = ImageHelper::cropImage($imageqrcodenew, 6, 6, 6, 6);
                 imagecopy($imagemegered, $imageqrcodenew, 64, 42, 0, 0, imagesx($imageqrcodenew), imagesy($imageqrcodenew));
                 break;

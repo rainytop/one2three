@@ -558,7 +558,7 @@ class BvvController extends Controller
         //dump($recommenduseravatar);
         //ini_set("memory_limit", "60M");
         $imageavatar = ImageHelper::loadImage($recommenduseravatar);
-        $imageavatarnew = ImageHelper::resizedImage($imageavatar, 88, 88);
+        $imageavatarnew = ImageHelper::resizeImage($imageavatar, 88, 88);
         imagecopy($imagemegered, $imageavatarnew, 6, 13, 0, 0, imagesx($imageavatarnew), imagesy($imageavatarnew));
 
         header('Content-Type: image/jpeg');

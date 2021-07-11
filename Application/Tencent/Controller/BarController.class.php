@@ -82,7 +82,7 @@ class BarController extends Controller
         $imagemegered = imagecreatetruecolor(imagesx($imagebg), imagesy($imagebg));
         imagecopy($imagemegered, $imagebg, 0, 0, 0, 0, imagesx($imagebg), imagesy($imagebg));
 
-        $imageqrcodenew = ImageHelper::resizedImage($imageqrcode, 200, 200);
+        $imageqrcodenew = ImageHelper::resizeImage($imageqrcode, 200, 200);
         $imageqrcodenew = ImageHelper::cropImage($imageqrcodenew, 14, 14, 14, 14);
         imagecopy($imagemegered, $imageqrcodenew, 100, 160, 0, 0, imagesx($imageqrcodenew), imagesy($imageqrcodenew));
 
